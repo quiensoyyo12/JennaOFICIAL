@@ -52,8 +52,6 @@
                 // Cerrar la conexión
                 mysqli_close($conexion);
                 ?>
-
-
             </div>
             <div class="col">
             <a href="Consultapedidos.php" class="btn btn-outline-primary">
