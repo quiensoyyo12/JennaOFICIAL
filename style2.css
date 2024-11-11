@@ -1,0 +1,101 @@
+
+
+body {
+  
+  background-color: #f0e6ff;
+  /* Lavanda claro */
+  color: #333;
+  /* Gris oscuro */
+    font-family: Arial, sans-serif; /* Elegant sans-serif font */
+    background: url('images/hj.jpg')no-repeat;
+    background-size: cover;
+    background-position: absolute;
+  }*/
+ 
+  nav{
+    background-color: #151414;
+  }
+
+.container {
+    max-width: 500px; /* Limit container width */
+    margin: 50px auto; /* Center the container */
+    border: 2px solid #f0e5e5; /* Red border */
+    background: transparent;
+    border-radius: 10px; /* Rounded corners */
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(5, 5, 5, 0.69);
+    padding: 5px;
+    background-color: transparent; /* Semi-transparent overlay */
+    position: absolute; /* Position the container within the background image */
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container horizontally and vertically */
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #faf6f6; /* Red underline */
+    padding-bottom: 5px;
+    color: #0c0c0c; /* White text color */
+  }
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid transparent; /* Gray border */
+    text-align: left;
+  }
+  
+  th {
+    background-color: #444444; /* Even darker for headers */
+  }
+  
+  .form-control {
+    background-color: #f3eeee; /* Darker input background */
+    color: #070707; /* White text color */
+    border: 1px solid #808080; /* Gray border */
+    padding: 5px;
+    border-radius: 5px; /* Rounded corners */
+  }
+
+/* General button styles */
+.btn { /* Target Bootstrap's `.btn` class */
+  background-color: transparent; /* Set initial transparent background */
+  border: none; /* Remove default border */
+  color: #fefbfb; /* Set default text color */
+  cursor: pointer; /* Indicate clickable area */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+/* Hover effect */
+.btn:hover {
+  background-color: #e0acef; /* Change background color on hover */
+}
+
+/* Specific button styles (optional) */
+#Guardar {
+  background-color: transparent; /* Blue background for "Guardar" button */
+  color: #0042f8; /* White text color for "Guardar" button */
+}
+
+#Borrar {
+  background-color: transparent; /* Red background for "Borrar" button */
+  color: #f95b00; /* White text color for "Borrar" button */
+}
+
+/* Other buttons (adjust as needed) */
+.btn-danger {
+  background-color: transparent; /* Red background for danger buttons */
+  color: #fe0000; /* White text color for danger buttons */
+}
+
+.btn-success {
+  background-color: transparent; /* Green background for success buttons */
+  color: #59ff00; /* White text color for success buttons */
+}
+
+.btn-info {
+  background-color: transparent; /* Blue background for info buttons */
+  color: #1500ff; /* White text color for info buttons */
+}

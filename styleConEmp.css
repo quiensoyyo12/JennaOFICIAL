@@ -1,0 +1,39 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  
+  }
+body {
+    background-color: #f0e6ff;
+    /* Lavanda claro */
+    color: #0b0b0b;
+    /* Gris oscuro */
+    font-family: Arial, sans-serif;
+    /* Elegant sans-serif font */
+    background: url('images/d.png')no-repeat;
+    background-size: cover;
+    background-position: absolute;
+  }
+.col-6 {
+    overflow-x: auto; /* Enable horizontal scrolling if table overflows container */
+  }
+  
+  .table {
+    width: 300%; /* Ensure table fills the entire width of its container */
+    table-layout: fixed; /* Fix column widths for consistent layout */
+  }
+  
+  .table thead th {
+    /* Style table headers (optional) */
+    background-color: #f1f1f1;
+    padding: 80px;
+    text-align: left;
+  }
+  
+  .table tbody tr td {
+    /* Style table body cells (optional) */
+    padding: 5px;
+  }

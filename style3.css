@@ -1,0 +1,132 @@
+    body {
+        background-color: #F0FFF0; /* Light teal background */
+        color: #333; /* Dark text color */
+        font-family: 'Arial', sans-serif; /* Simple sans-serif font */
+        text-align: center; /* Center all content */
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: #0099CC; /* Hatsune Miku's signature teal color */
+        font-weight: bold;
+    }
+    
+    a {
+        color: #0099CC; /* Teal links */
+        text-decoration: none; /* Remove default underline */
+    }
+    
+    a:hover {
+        text-decoration: underline; /* Add underline on hover */
+    }
+    
+    img {
+        border: 2px solid #0099CC; /* Teal border for images */
+        margin: 10px; /* Add spacing around images */
+    }
+    
+    .container {
+        max-width: 800px; /* Limit container width */
+        margin: 50px auto; /* Center the container */
+        padding: 20px;
+        border: 2px solid #0099CC; /* Teal border for the container */
+        border-radius: 10px; /* Rounded corners */
+        background-color: #FFF; /* White background for the container */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%); 
+    }
+    
+    .header {
+        background-color: #0099CC; /* Teal header */
+        padding: 10px;
+    }
+    
+    .header h1 {
+        margin: 0; /* Remove default top margin */
+    }
+    
+    .navigation {
+        background-color: #EEE; /* Light gray navigation bar */
+        padding: 10px;
+    }
+    
+    .navigation ul {
+        list-style: none; /* Remove default list bullets */
+        padding: 0;
+        margin: 0;
+    }
+    
+    .navigation ul li {
+        display: inline-block; /* Display list items inline */
+        margin-right: 20px; /* Add spacing between list items */
+    }
+    
+    .navigation ul li a {
+        color: #333; /* Dark text for navigation links */
+        font-weight: bold;
+    }
+    
+    .footer {
+        background-color: #0099CC; /* Teal footer */
+        padding: 10px;
+        text-align: left; /* Align footer text to the left */
+    }
+    
+    .footer p {
+        margin: 0; /* Remove default bottom margin */
+    }
+    th,
+    td {
+        padding: 10px;
+        border: 1px solid #0a0a0a; /* Gray border */
+        text-align: left;
+    }
+    
+    th {
+        background-color: #0b0b0b; /* Even darker for headers */
+    }
+    
+    .btn-primary,
+    .btn-danger,
+    .btn-success,
+    .btn-info {
+        background-color: transparent; /* Transparent buttons */
+        color: #131313; /* Light text color */
+        border: 1px solid #808080; /* Gray border */
+        padding: 5px 10px;
+        border-radius: 5px; /* Rounded corners */
+    }
+    
+    .btn-primary:hover,
+    .btn-danger:hover,
+    .btn-success:hover,
+    .btn-info:hover {
+        background-color: #ff6600; /* Red background on hover */
+        color: #fff; /* White text color on hover */
+    }
+    
+    .btn-danger {
+        border-color: #ff0000; /* Red border for danger button */
+    }
+    
+    .btn-danger:hover {
+        background-color: #990000; /* Darker red on hover */
+    }
+    
+    .btn-success {
+        border-color: #00ff00; /* Green border for success button */
+    }
+    
+    .btn-success:hover {
+        background-color: #00cc00; /* Darker green on hover */
+    }
+    
+    .btn-info {
+        border-color: #00ffff; /* Blue border for info button */
+    }
+    
+    .btn-info:hover {
+        background-color: #00cccc; /* Darker blue on hover */
+    }

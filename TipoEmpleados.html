@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="css/css/bootstrap.css">
+    <title>Tipos de empleados</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">logo</div>
+        <div class="bars">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="" class="active">inicio</a>
+                </li>
+                <li>
+                    <a href="" class="">Blog</a>
+                </li>
+                <li>
+                    <a href="" class="">Portafolio</a>
+                </li>
+                <li>
+                    <a href="" class="">Contacto</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <script src="script2.js"></script>
+
+        <div class="container text-center">
+        <div class="row">
+            <div class="col order-last">
+                <button class="toggle-table">Mostrar Tabla</button>
+                <ul class="hidden-table">
+                        <li>Celda 1</li>
+                        <li>Celda 2</li>
+                        <li>Celda 3</li>
+                </ul>
+            </div>
+            <div class="col tu-clase">
+                        <h2>Tipo de empleado</h2>
+                        <form id="frmTiposEmpleados" action="TiposEmpleados.php" method="post">
+                            <tr>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <input id="idTiposEmp" name="idTiposEmp" type="hidden" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Administrador:
+                                </td>
+                                <td>
+                                    <input id="Administrador" name="Administrador" type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Auxiliar:
+                                </td>
+                                <td>
+                                    <input id="Auxiliar" name="Auxiliar" type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cliente:
+                                </td>
+                                <td>
+                                    <input id="Cliente" name="Cliente" type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Permisos:
+                                </td>
+                                <td>
+                                    <input id="idPermisos" name="idPermisos" type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <br>
+                            <tr>
+                                <td>
+                                    <input id="Guardar" name="Guardar" type="submit" value="Guardar"
+                                        class="btn btn-primary btn-mini">
+                                </td>
+                                <td>
+                                    <input id="Borrar" type="reset" value="Eliminar" class="btn btn-danger btn-mini">
+                                </td>
+
+                            </tr>
+                            <!-- Botón para eliminar -->
+                            <button type="button" onclick="enviarFormulario('EliminarTipo.php')"
+                                class="btn btn-danger btn-mini">Eliminar</button>
+                            <!-- Botón para actualizar -->
+                            <button type="button" onclick="enviarFormulario('Updatetipo.php')"
+                                class="btn btn-success btn-mini">Actualizar</button>
+                            <!-- Botón para consultar -->
+                            <button type="button" onclick="enviarFormulario('Consultatipo.php')"
+                                class="btn btn-info btn-mini">Consultar</button>
+                        </form>
+                    </div>
+                    <div class="col order-first">
+                        Third in DOM, ordered first
+                    </div>
+            </div>
+        </div>
+        </div>
+        <script>
+            function enviarFormulario(url) {
+                // Obtener el formulario
+                var form = document.getElementById("frmTiposEmpleados");
+                // Establecer la acción del formulario al URL deseado
+                form.action = url;
+                // Enviar el formulario
+                form.submit();
+            }
+        </script>
+        <script>
+            const toggleButton = document.querySelector('.toggle-table');
+            const hiddenTable = document.querySelector('.hidden-table');
+    
+            toggleButton.addEventListener('click', () => {
+                hiddenTable.classList.toggle('show-table');
+                toggleButton.textContent = hiddenTable.classList.contains('show-table') ? 'Ocultar Tabla' : 'Mostrar Tabla';
+            });
+    
+            function name(params) {
+                show - table; {
+                    display: table; /* Muestra la tabla */
+                }
+            }
+        </script>
+    </body>
+
+</html>

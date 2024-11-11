@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  
+  }
+body {
+    background-color: #f0e6ff;
+    /* Lavanda claro */
+    color: #333;
+    /* Gris oscuro */
+    font-family: Arial, sans-serif;
+    /* Elegant sans-serif font */
+    background: url('images/d.png')no-repeat;
+    background-size: cover;
+    background-position: absolute;
+  }
+/* Center the table within its parent container */
+.col-6 table {
+    margin: 0 auto;
+    width: 300%; /* Ensure table takes up full width within its container */
+  }
+  
+  /* Style the transparent blurred box */
+  .col-6 {
+    position: relative; /* Enable positioning for child elements */
+  }
+  
+  .col-6::before {
+    content: ""; /* Create an empty pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 115%;
+    height: 102%;
+    background-color: rgba(255, 255, 255, 0.5); /* Set transparent background color */
+    backdrop-filter: blur(20px); /* Apply blur effect */
+    z-index: -1; /* Place behind the table */
+  }

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="css/css/bootstrap.css">
+    <title>Registro de Proveedores</title>
+</head>
+
+
+<body>
+    <header>
+        <div class="logo">logo</div>
+        <div class="bars">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="" class="active">inicio</a>
+                </li>
+                <li>
+                    <a href="" class="">Blog</a>
+                </li>
+                <li>
+                    <a href="" class="">Portafolio</a>
+                </li>
+                <li>
+                    <a href="" class="">Contacto</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <script src="script2.js"></script>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col order-last">
+                <button class=" toggle-table">Mostrar Tabla</button>
+                <ul class="hidden-table">
+                        <li>Celda 1</li>
+                        <li>Celda 2</li>
+                        <li>Celda 3</li>
+                </ul>
+            </div>
+
+        <div class="col tu-clase">
+            
+                    <h2>Alta Proveedores</h2>
+                    <form id="frmProveedor" action="RegistroProveedor.php" method="post">
+                        <tr>
+                            <td>
+                                idProveedor:
+                            </td>
+                            <td>
+                                <input id="idProveedor" name="idProveedor" type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Nombre:
+                            </td>
+                            <td>
+                                <input id="Nombre" name="Nombre" type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Apellido Paterno:
+                            </td>
+                            <td>
+                                <input id="ApellidoP" name="ApellidoP" type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Apellido Materno:
+                            </td>
+                            <td>
+                                <input id="ApellidoM" name="ApellidoM" type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                RFC:
+                            </td>
+                            <td>
+                                <input id="RFC" name="RFC" input type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Teléfono:
+                            </td>
+                            <td>
+                                <input id="Telefono" name="Telefono" type="number" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Domicilio:
+                            </td>
+                            <td>
+                                <input id="Domicilio" name="Domicilio" type="text" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Correo:
+                            </td>
+                            <td>
+                                <input id="Correo" name="Correo" type="email" class="form-control">
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td>
+                                <input id="Registrar" name="Registrar" type="submit" value="Registrar"
+                                    class="btn btn-primary btn-mini">
+                            </td>
+                            <td>
+                                <input id="Borrar" type="reset" value="Borrar" class="btn btn-danger btn-mini">
+                            </td>
+                        </tr>
+                        <!-- Botón para eliminar -->
+                        <button type="button" onclick="enviarFormulario('Eliminarproveedores.php')"
+                            class="btn btn-danger btn-mini">Eliminar</button>
+                        <!-- Botón para actualizar -->
+                        <button type="button" onclick="enviarFormulario('UpdateProveedor.php')"
+                            class="btn btn-success btn-mini">Actualizar</button>
+                        <!-- Botón para consultar -->
+                        <button type="button" onclick="enviarFormulario('Consultaproveedor.php')"
+                            class="btn btn-info btn-mini">Consultar</button>
+                    </form>
+                </div>
+                <div class="col order-first">
+                    
+                </div>
+        </div>
+    </div>
+    <script>
+        function enviarFormulario(url) {
+            // Obtener el formulario
+            var form = document.getElementById("frmProveedor");
+            // Establecer la acción del formulario al URL deseado
+            form.action = url;
+            // Enviar el formulario
+            form.submit();
+        }
+    </script>
+    <script>
+        const toggleButton = document.querySelector('.toggle-table');
+        const hiddenTable = document.querySelector('.hidden-table');
+
+        toggleButton.addEventListener('click', () => {
+            hiddenTable.classList.toggle('show-table');
+            toggleButton.textContent = hiddenTable.classList.contains('show-table') ? 'Ocultar Tabla' : 'Mostrar Tabla';
+        });
+
+        function name(params) {
+            show - table; {
+                display: table; /* Muestra la tabla */
+            }
+        }
+    </script>
+</body>
+
+</html>

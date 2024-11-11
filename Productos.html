@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="css/css/bootstrap.css">
+    <title>Productos</title>
+</head>
+
+    <body>
+        <header>
+            <div class="logo">logo</div>
+            <div class="bars">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <nav class="nav-bar">
+                <ul>
+                    <li>
+                        <a href="" class="active">inicio</a>
+                    </li>
+                    <li>
+                        <a href="" class="">Blog</a>
+                    </li>
+                    <li>
+                        <a href="" class="">Portafolio</a>
+                    </li>
+                    <li>
+                        <a href="" class="">Contacto</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <script src="script2.js"></script>
+    
+        <div class="container text-center">
+            <div class="row">
+                <div class="col order-last">
+                    <button class="toggle-table">Mostrar Tabla</button>
+                    <ul class="hidden-table">
+                            <li ><a href="Mostrar_Productos.php">Ver</a></li>
+                            <li>Celda 2</li>
+                            <li>Celda 3</li>
+                    </ul>
+                </div>
+                <div class="col tu-clase">
+                                <h2>Registrar productos</h2>
+                                    <form id="frmProductos" action="Productos.php" method="post" enctype="multipart/form-data">
+                                            <tr>
+                                                <td>
+                                                    
+                                                    <input id="idProductos" name="idProductos" type="hidden" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Tipo de producto:
+                                                </td>
+                                                <td>
+                                                    <input id="Tipo_Productos" name="Tipo_Productos" type="text"
+                                                        class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Nombre del producto:
+                                                </td>
+                                                <td>
+                                                    <input id="Nombre_producto" name="Nombre_producto" type="text"
+                                                        class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Marca:
+                                                </td>
+                                                <td>
+                                                    <input id="Marca" name="Marca" type="text" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Descripcion:
+                                                </td>
+                                                <td>
+                                                    <input id="Descripcion_Productos" name="Descripcion_Productos" type="text"
+                                                        class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Cantidad de productos:
+                                                </td>
+                                                <td>
+                                                    <input id="Cantidad_Productos" name="Cantidad_Productos" type="text"
+                                                        class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Precio:
+                                                </td>
+                                                <td>
+                                                    <input id="Precio" name="Precio" type="text" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Imagen:</td>
+                                                <td>
+                                                    <input id="imagen" name="imagen" type="file" class="form-control" accept="image/*">
+                                                </td>
+                                            </tr>
+                                            
+                                            <br>
+                                            <tr>
+                                                <td>
+                                                    <input id="Guardar" name="Guardar" type="submit" value="Guardar"
+                                                        class="btn btn-primary btn-mini">
+                                                </td>
+                                                <td>
+                                                    <input id="Borrar" type="reset" value="Borrar" class="btn btn-danger btn-mini">
+                                                </td>
+            
+                                            </tr>
+                                        
+                                        <!-- Botón para eliminar -->
+                                        <button type="button" onclick="enviarFormulario('EliminarProductos.php')"
+                                            class="btn btn-danger btn-mini">Eliminar</button>
+                                        <!-- Botón para actualizar -->
+                                        <button type="button" onclick="enviarFormulario('Updateproductos.php')"
+                                            class="btn btn-success btn-mini">Actualizar</button>
+                                        <!-- Botón para consultar -->
+                                        <button type="button" onclick="enviarFormulario('Consultaproductos.php')"
+                                            class="btn btn-info btn-mini">Consultar</button>
+                                    </form>
+                            </div>
+                            <div class="col order-first">
+                                Third in DOM, ordered first
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function enviarFormulario(url) {
+                    // Obtener el formulario
+                    var form = document.getElementById("frmProductos");
+                    // Establecer la acción del formulario al URL deseado
+                    form.action = url;
+                    // Enviar el formulario
+                    form.submit();
+                }
+            </script>
+            <script>
+                const toggleButton = document.querySelector('.toggle-table');
+                const hiddenTable = document.querySelector('.hidden-table');
+        
+                toggleButton.addEventListener('click', () => {
+                    hiddenTable.classList.toggle('show-table');
+                    toggleButton.textContent = hiddenTable.classList.contains('show-table') ? 'Ocultar Tabla' : 'Mostrar Tabla';
+                });
+        
+                function name(params) {
+                    show - table; {
+                        display: table; /* Muestra la tabla */
+                    }
+                }
+            </script>
+    </body>
+
+</html>
