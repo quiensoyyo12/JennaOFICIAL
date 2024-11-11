@@ -38,10 +38,10 @@
                             echo "<h3>Datos del producto no se guaradron</h3>";
                         }
                         ?>
-                         <a href="Consultapedidos.php" class="btn btn-outline-primary">
-                     Consulta a la BD de Tipo de usuarios
+                         
                     </div>
-                    <div class="col"></div>
+                    <div class="col"><a href="Consultapedidos.php" class="btn btn-outline-primary">
+                    Consulta a la BD de Tipo de usuarios</div>
                 </div>
 
             </div>

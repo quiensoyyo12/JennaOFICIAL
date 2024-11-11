@@ -35,7 +35,7 @@
                 // Validar que los datos no estén vacíos
                 if (!empty($Cantidad_Pedidos) && !empty($FechaEntrega_Pedidos) && !empty($Total) && !empty($idProveedor)) {
                     // Insertar datos en la tabla "pedidos"
-                    $consulta = "INSERT INTO pedidos (CantidadProductos, FechaEntrega, Total, idProveedor) 
+                    $consulta = "INSERT INTO pedidos (Cantidad_Pedidos, FechaEntrega_Pedidos, Total, idProveedor) 
                  VALUES ('$Cantidad_Pedidos', '$FechaEntrega_Pedidos', '$Total', '$idProveedor')";
 
                     $resultado = mysqli_query($conexion, $consulta);
@@ -56,7 +56,8 @@
 
             </div>
             <div class="col">
-
+            <a href="Consultapedidos.php" class="btn btn-outline-primary">
+            Consulta a la BD de Tipo de usuarios
             </div>
         </div>
     </div>
