@@ -25,17 +25,21 @@
             <div class="col-6">
                 <h2>Alta de usuarios</h2>
                 <?php
-                    $idUsuarios=$_POST['idUsuarios'];
+                    $idUsuarios=$_POST['id'];
                     $usuario=$_POST['Nombre'];
-                    $Correo=$_POST['Correo'];
-                    $Password=$_POST['Password'];
-                    echo "idUsuarios: ".$idUsuarios."<br>";
+                    $Apellido=$_POST['Apellido_paterno'];
+                    $ApellidoM=$_POST['Apellido_materno'];
+                    $Correo=$_POST['correo'];
+                    $Password=$_POST['contrasena'];
+                    echo "id: ".$idUsuarios."<br>";
                     echo "Nombre: ".$usuario."<br>";
-                    echo "Correo: ".$Correo."<br>";
-                    echo "Password: ".$Password."<br>";                  
+                    echo "Apellido_paterno: ".$Apellido."<br>";
+                    echo "Apellido_materno: ".$ApellidoM."<br>";
+                    echo "correo: ".$Correo."<br>";
+                    echo "contrasena: ".$Password."<br>";                  
                     $conexion = mysqli_connect("localhost","root","","jennawork")
                     or die ("Error en la B.D.");
-                    $Consulta="INSERT INTO usuarios VALUES('$idUsuarios', '$usuario' ,'$Correo','$Password')";
+                    $Consulta="INSERT INTO usuario VALUES('$idUsuarios', '$usuario' ,'$Apellido','$ApellidoM','$Correo','$Password')";
                     $resultado=mysqli_query($conexion,$Consulta);
                     if($resultado==1)
                     {

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login/styleB.css">
     <link rel="stylesheet" href="css/css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
     <title>Usuarios</title>
 </head>
 <body>
     <header>
-        <div class="logo">logo</div>
+        <div class="logo">
+            <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
+        </div>
         <div class="bars">
             <div class="line"></div>
             <div class="line"></div>
@@ -49,15 +53,15 @@
                                             <form id="frmUsuarios" action="Usuarios.php" method="post">
                                                     <tr>
                                                         <td>
-                                                            *idUsuario:
+                                                            
                                                         </td>
                                                         <td>
-                                                            <input id="idUsuarios" name="idUsuarios" type="text" class="form-control">
+                                                            <input id="id" name="id" type="hidden" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            Nombre completo:
+                                                            Nombre
                                                         </td>
                                                         <td>
                                                             <input id="Nombre" name="Nombre" type="text" class="form-control">
@@ -65,10 +69,26 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            *Usuario:
+                                                            Apellido Paterno
                                                         </td>
                                                         <td>
-                                                            <input id="Correo" name="Correo" type="text" class="form-control">
+                                                            <input id="Apellido_paterno" name="Apellido_paterno" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Apellido Materno
+                                                        </td>
+                                                        <td>
+                                                            <input id="Apellido_materno" name="Apellido_materno" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Correo
+                                                        </td>
+                                                        <td>
+                                                            <input id="correo" name="correo" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -76,7 +96,7 @@
                                                             Contraseña:
                                                         </td>
                                                         <td>
-                                                            <input id="Password" name="Password" type="text" class="form-control">
+                                                            <input id="contrasena" name="contrasena" type="password" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <br>

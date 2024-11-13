@@ -62,3 +62,21 @@ body {
         display: none;
     }
 }
+
+.pagination {
+    margin-top: 20px;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.page-link {
+    color: #007bff;
+}
+
+.page-item:hover .page-link {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

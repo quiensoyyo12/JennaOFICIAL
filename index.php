@@ -39,13 +39,17 @@ if ($conn->connect_error) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login/styleB.css">
     <link rel="stylesheet" href="css/css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
     <title>Administrador</title>
     <link rel="stylesheet" href="styleF.css">
 </head>
 
 <body>
-    <header>
-        <div class="logo">logo</div>
+<header>
+<div class="logo">
+    <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
+</div>
         <div class="bars">
             <div class="line"></div>
             <div class="line"></div>
@@ -65,16 +69,16 @@ if ($conn->connect_error) {
                 <li>
                     <a href="" class="">Contacto</a>
                 </li>
-            </ul>
             <div class="d-flex">
-                <h5>
-                    <?php
-                    echo $fila_ciudadano['Nombre'];
-                    ?>
-                    --
-                </h5>
+            <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
+    <?php
+    echo htmlspecialchars($fila_ciudadano['Nombre']);
+    ?>
+    --
+</h5>
+
                 <!-- Button trigger modal -->
-                <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/cerrar-sesion.png" alt="cerrar sesion" width="40" height="32"></a>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/salir-alt (2).png" alt="cerrar sesion" width="40" height="32"></a>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,15 +93,16 @@ if ($conn->connect_error) {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
-                                <a type="button" class="btn btn-primary" href="m/cerrarSesion.php">Cerrar Sesión</a>
+                                <a type="button" class="btn btn-primary" href="cerrarSesion.php">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <script src="script2.js"></script>
+        </ul>
+    </nav>
+</header>
+<script src="script2.js"></script>
 
     <h1>Bienvenido a la fuente de control.</h1>
 <br>
@@ -108,7 +113,7 @@ if ($conn->connect_error) {
     <form id="frmindex" action="" method="post"></form>
     <div class="container">
         <div class="cuadro">
-            <a href="empleados.html"> Alta empleados</a><br>
+            <a href="RegistroEmpleados.html"> Alta empleados</a><br>
             <label for="">
                 <img width="55px" src="reclutamiento.png" alt="">
             </label>
@@ -121,7 +126,7 @@ if ($conn->connect_error) {
         </div>
         <div class="cuadro">
             <i class="fi fi-sr-shopping-cart"></i>
-            <a href="Pedidos.html">Alta pedidos</a><br>
+            <a href="PedidosA.php">Alta pedidos</a><br>
             <label for="">
                 <img width="55px" src="cami.svg" alt="">
             </label>

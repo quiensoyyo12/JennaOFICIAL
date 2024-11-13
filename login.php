@@ -16,12 +16,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $resultado = mysqli_query($conexion, $consulta);
     $fila = mysqli_fetch_assoc($resultado);
 
-
     // Si hay una fila en el resultado, las credenciales son correctas
     if(mysqli_num_rows($resultado) > 0) {
         session_start();
         $_SESSION['id'] = $fila['id'];
-        header("Location: index.php");
+        $_SESSION['tipo_usuario'] = $fila['tipo_usuario']; // Guardar el tipo de usuario en la sesión
+
+        // Redirigir según el tipo de usuario
+        if ($_SESSION['tipo_usuario'] == 'admin') {
+            header("Location: index.php"); // Redirigir a la página de administrador
+        } elseif ($_SESSION['tipo_usuario'] == 'cliente') {
+            header("Location: inicio.php"); // Redirigir a la página de cliente
+        } elseif ($_SESSION['tipo_usuario'] == 'auxiliar') {
+            header("Location: index2.php"); // Redirigir a la página de auxiliar
+        } else {
+            $error = "Tipo de usuario no reconocido";
+        }
         exit();
     } else {
         $error = "Correo o contraseña incorrectos";
@@ -39,22 +49,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registro'])) {
     $conexion2 = mysqli_connect("localhost", "root", "", "jennawork");
 
     // Insertar nuevo usuario en la base de datos
-    $consulta_insertar = "INSERT INTO `usuario`(`Nombre`, `Apellido_paterno`, `Apellido_materno`, `correo`, `contrasena`) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$correo2', '$password')";
-    
+    $consulta_insertar = "INSERT INTO `usuario`(`Nombre`, `Apellido_paterno`, `Apellido_materno`, `correo`, `contrasena`, `tipo_usuario`) 
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$correo2', '$password', 'cliente')"; // Se agrega 'cliente' por defecto
+
     $resultado = mysqli_query($conexion2, $consulta_insertar);
-    
-    if ($resultado==1)
-    {
+
+    if ($resultado == 1) {
         header("Location: index.php");
         mysqli_close($conexion2); // Cierra la conexión a la base de datos
-    }
-    else{
+    } else {
         $error_registro = "Error al registrar el usuario: " . mysqli_error($conexion2);
         mysqli_close($conexion2); // Cierra la conexión a la base de datos
     }
 }
-
-
 ?>
 
 <!DOCTYPE html>

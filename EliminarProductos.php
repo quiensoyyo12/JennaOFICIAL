@@ -1,51 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Archivos Bosststrap-->
-    <link rel="stylesheet" href="css/css/bootstrap.css" type="text/css">
-    <link href="css/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <title>Eliminación de productos</title>
-</head>
-<body>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col-6">
-                <h2>Eliminación de productos</h2>
-                <?php
-$idProductos = $_POST['idProductos'] ?? null;
+<?php
+header('Content-Type: application/json');
 
-if (!$idProductos) {
-    die("ID no proporcionado.");
-}
+// Conexión a la base de datos
+$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
 
-echo "ID recibido: $idProductos<br>"; // Depuración
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
+// Obtener el ID enviado por POST
+$id = $_POST['id'] ?? null;
 
-if (!$conexion) {
-    die("Error de conexión: " . mysqli_connect_error());
-}
-
-$consulta = "DELETE FROM productos WHERE idProductos='$idProductos'";
-$resultado = mysqli_query($conexion, $consulta);
-
-if ($resultado && mysqli_affected_rows($conexion) > 0) {
-    echo "<h3>Datos borrados</h3>";
+if ($id) {
+    $query = "DELETE FROM productos WHERE idProductos = '$id'";
+    if (mysqli_query($conexion, $query)) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => mysqli_error($conexion)]);
+    }
 } else {
-    echo "<h3>Error al borrar los datos o el ID no existe</h3>";
+    echo json_encode(['success' => false, 'message' => 'ID no válido']);
 }
 
 mysqli_close($conexion);
 ?>
-
-                <a href="Consultaproductos.html" class="btn btn-outline-primary">Regresar a la tabla</a>
-            </div>
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</body>
-</html>

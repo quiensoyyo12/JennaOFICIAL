@@ -1,39 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Archivos Bosststrap-->
-    <link rel="stylesheet" href="css/css/bootstrap.css" type="text/css">
-    <link href="css/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <title>Eliminación de ventas</title>
-</head>
-<body>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col-6">
-                <h2>Eliminación de ventas</h2>
-                <?php
-                    $idDetalle_venta=$_POST['idDetalle_venta'];
-                    $conexion = mysqli_connect("localhost","root","","jennawork");
-                #or die ("Error en la B.D");
-                $consulta = "DELETE FROM detalle_venta WHERE idDetalle_venta='$idDetalle_venta'";
-                $resultado=mysqli_query($conexion, $consulta);
-                if ($resultado==1)
-                {
-                    echo "<h3>datos Borrados</h3>";
-                }
-                else{
-                    echo "<h3>datos no Borrados</h3>";
-                }
-                ?>
-                <a href="ConsultadetalleV.php" class="btn btn-outline-primary">Consulta la Base de Datos de Ventas</a>
-            </div>
-            <div class="col">
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+<?php
+header('Content-Type: application/json');
+
+// Conexión a la base de datos
+$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
+
+// Obtener el ID enviado por POST
+$id = $_POST['id'] ?? null;
+
+if ($id) {
+    $query = "DELETE FROM detalle_venta WHERE idDetalle_venta = '$id'";
+    if (mysqli_query($conexion, $query)) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => mysqli_error($conexion)]);
+    }
+} else {
+    echo json_encode(['success' => false, 'message' => 'ID no válido']);
+}
+
+mysqli_close($conexion);
+?>
