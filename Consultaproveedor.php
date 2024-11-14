@@ -103,71 +103,106 @@ if ($conn->connect_error) {
         </nav>
     </header>
     <script src="script2.js"></script>
-
     <div class="container my-4">
     <div class="row justify-content-center">
         <div class="col-12">
             <h2 class="text-center mb-4">Lista de Proveedores</h2>
             <div class="table-responsive">
-                <table class="table  table-striped table-bordered table-hover">
-                <thead>
-    <tr>
-        <th>idProveedor</th>
-        <th>Nombre</th>
-        <th>Apellido Paterno</th>
-        <th>Apellido Materno</th>
-        <th>RFC</th>
-        <th>Teléfono</th>
-        <th>Domicilio</th>
-        <th>Correo</th>
-        <th>Acciones</th>
-    </tr>
-</thead>
-<tbody>
-    <?php
-    $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
-    $consulta = "SELECT * FROM proveedor";
-    $resultado = mysqli_query($conexion, $consulta);
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>idProveedor</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>RFC</th>
+                            <th>Teléfono</th>
+                            <th>Domicilio</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Configuración de la paginación
+                        $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
+                        $registros_por_pagina = 5; // Número de registros por página
+                        $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                        $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
-    if (mysqli_num_rows($resultado) > 0) {
-        while ($row = mysqli_fetch_assoc($resultado)) {
-            echo "<tr data-id='{$row['idProveedor']}'>";
-            echo "<td>{$row['idProveedor']}</td>";
-            echo "<td class='nombre'>{$row['Nombre']}</td>";
-            echo "<td class='apellidoP'>{$row['ApellidoP']}</td>";
-            echo "<td class='apellidoM'>{$row['ApellidoM']}</td>";
-            echo "<td class='rfc'>{$row['rfc']}</td>";
-            echo "<td class='telefono'>{$row['Telefono']}</td>";
-            echo "<td class='domicilio'>{$row['Domicilio']}</td>";
-            echo "<td class='correo'>{$row['correo']}</td>";
-            echo "<td>
-                    <button class='btn btn-sm btn-warning actualizar-btn' 
-                        data-id='{$row['idProveedor']}'
-                        data-nombre='{$row['Nombre']}'
-                        data-apellidoP='{$row['ApellidoP']}'
-                        data-apellidoM='{$row['ApellidoM']}'
-                        data-rfc='{$row['rfc']}'
-                        data-telefono='{$row['Telefono']}'
-                        data-domicilio='{$row['Domicilio']}'
-                        data-correo='{$row['correo']}'>
-                        Actualizar
-                    </button>
-                    <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idProveedor']}'>Eliminar</button>
-                  </td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='9' class='text-center'>No hay proveedores registrados.</td></tr>";
-    }
-    mysqli_close($conexion);
-    ?>
-</tbody>
+                        // Consulta con paginación
+                        $consulta = "SELECT * FROM proveedor LIMIT $registros_por_pagina OFFSET $offset";
+                        $resultado = mysqli_query($conexion, $consulta);
 
+                        if (mysqli_num_rows($resultado) > 0) {
+                            while ($row = mysqli_fetch_assoc($resultado)) {
+                                echo "<tr data-id='{$row['idProveedor']}'>";
+                                echo "<td>{$row['idProveedor']}</td>";
+                                echo "<td class='nombre'>{$row['Nombre']}</td>";
+                                echo "<td class='apellidoP'>{$row['ApellidoP']}</td>";
+                                echo "<td class='apellidoM'>{$row['ApellidoM']}</td>";
+                                echo "<td class='rfc'>{$row['rfc']}</td>";
+                                echo "<td class='telefono'>{$row['Telefono']}</td>";
+                                echo "<td class='domicilio'>{$row['Domicilio']}</td>";
+                                echo "<td class='correo'>{$row['correo']}</td>";
+                                echo "<td>
+                                        <button class='btn btn-sm btn-warning actualizar-btn' 
+                                            data-id='{$row['idProveedor']}'
+                                            data-nombre='{$row['Nombre']}'
+                                            data-apellidoP='{$row['ApellidoP']}'
+                                            data-apellidoM='{$row['ApellidoM']}'
+                                            data-rfc='{$row['rfc']}'
+                                            data-telefono='{$row['Telefono']}'
+                                            data-domicilio='{$row['Domicilio']}'
+                                            data-correo='{$row['correo']}'>
+                                            Actualizar
+                                        </button>
+                                        <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idProveedor']}'>Eliminar</button>
+                                      </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='9' class='text-center'>No hay proveedores registrados.</td></tr>";
+                        }
+
+                        // Calcular total de páginas
+                        $consulta_total = "SELECT COUNT(*) AS total FROM proveedor";
+                        $resultado_total = mysqli_query($conexion, $consulta_total);
+                        $total_filas = mysqli_fetch_assoc($resultado_total)['total'];
+                        $total_paginas = ceil($total_filas / $registros_por_pagina);
+
+                        mysqli_close($conexion);
+                        ?>
+                    </tbody>
                 </table>
+
+                <!-- Paginación -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php
+                        // Botón "Anterior"
+                        if ($pagina_actual > 1) {
+                            echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '">Anterior</a></li>';
+                        }
+
+                        // Números de página
+                        for ($i = 1; $i <= $total_paginas; $i++) {
+                            $active = ($i == $pagina_actual) ? 'active' : '';
+                            echo '<li class="page-item ' . $active . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                        }
+
+                        // Botón "Siguiente"
+                        if ($pagina_actual < $total_paginas) {
+                            echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '">Siguiente</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal para actualizar proveedores -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">

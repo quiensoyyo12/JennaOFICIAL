@@ -28,25 +28,26 @@
         /* Fuente principal */
     }
 
-    .card-title {
-        color: #9933cc;
-        /* Morado claro para links y títulos */
-        /* font-family: 'Freestyle Script', sans-serif; /* Fuente decorativa */
-    }
-
-    .card-text {
-        color: #666;
-        /* Gris más claro para texto */
-    }
-
-    .container {
-        padding: 20px;
-        /* Añadir espacio alrededor del contenido */
-    }
-
+    /* Estilo para garantizar que todas las cards tengan el mismo tamaño */
     .card {
-        margin-bottom: 20px;
-        /* Añadir espacio entre tarjetas */
+        height: 350px;
+        /* Altura fija para todas las cards */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-img-top {
+        height: 200px;
+        /* Altura fija para las imágenes */
+        object-fit: cover;
+        /* Ajustar imágenes sin distorsionarlas */
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
 
@@ -119,29 +120,30 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center"  onclick="location.href='Aretes.php';" style="cursor: pointer;">
                         <img src="images/aretes.jpg" class="card-img-top" alt="Aretes">
                         <div class="card-body">
                             <h5 class="card-title">Aretes</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Aretes.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Anillos.php';" style="cursor: pointer;">
                         <img src="images/anillos.jpg" class="card-img-top" alt="Anillos">
                         <div class="card-body">
                             <h5 class="card-title">Anillos</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Anillos.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Collares.php';" style="cursor: pointer;">
                         <img src="images/colar.jpg" class="card-img-top" alt="Collares">
                         <div class="card-body">
                             <h5 class="card-title">Collares</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Collares.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
@@ -164,7 +166,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Pulseras.php';" style="cursor: pointer;">
                         <img src="images/pulsera.jpg" class="card-img-top" alt="Pulseras">
                         <div class="card-body">
                             <h5 class="card-title">Pulseras</h5>

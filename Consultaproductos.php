@@ -103,126 +103,150 @@ if ($conn->connect_error) {
     </header>
     <script src="script2.js"></script>
 
-   
 
 
     <div class="container my-4">
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
+                <a href="reporte_productos.php" class="btn btn-primary">Generar Reporte PDF</a>
                     <table id="datatable_products" class="table table-striped table-bordered">
                         <caption></caption>
-                       
+
                         <?php
-// Conectar a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error en la B.D.");
+                        // Conectar a la base de datos
+                        $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error en la B.D.");
 
-// Número de productos por página
-$productosPorPagina = 5;
+                        // Número de productos por página
+                        $productosPorPagina = 5;
 
-// Obtener el número total de productos
-$consultaTotalProductos = "SELECT COUNT(*) FROM productos";
-$resultadoTotal = mysqli_query($conexion, $consultaTotalProductos);
-$fila = mysqli_fetch_row($resultadoTotal);
-$totalProductos = $fila[0];
+                        // Obtener el número total de productos
+                        $consultaTotalProductos = "SELECT COUNT(*) FROM productos";
+                        $resultadoTotal = mysqli_query($conexion, $consultaTotalProductos);
+                        $fila = mysqli_fetch_row($resultadoTotal);
+                        $totalProductos = $fila[0];
 
-// Calcular el total de páginas
-$totalPaginas = ceil($totalProductos / $productosPorPagina);
+                        // Calcular el total de páginas
+                        $totalPaginas = ceil($totalProductos / $productosPorPagina);
 
-// Obtener el número de la página actual
-$paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$paginaActual = max($paginaActual, 1); // Asegurarse de que la página no sea menor a 1
-$paginaActual = min($paginaActual, $totalPaginas); // No exceder el total de páginas
+                        // Obtener el número de la página actual
+                        $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                        $paginaActual = max($paginaActual, 1); // Asegurarse de que la página no sea menor a 1
+                        $paginaActual = min($paginaActual, $totalPaginas); // No exceder el total de páginas
 
-// Calcular el inicio de los productos para la consulta
-$inicio = ($paginaActual - 1) * $productosPorPagina;
+                        // Calcular el inicio de los productos para la consulta
+                        $inicio = ($paginaActual - 1) * $productosPorPagina;
 
-// Consulta para obtener los productos de la página actual
-$consultaProductos = "SELECT * FROM productos LIMIT $inicio, $productosPorPagina";
-$resultadoProductos = mysqli_query($conexion, $consultaProductos);
+                        // Consulta para obtener los productos de la página actual
+                        $consultaProductos = "SELECT * FROM productos LIMIT $inicio, $productosPorPagina";
+                        $resultadoProductos = mysqli_query($conexion, $consultaProductos);
 
-// Mostrar los productos
-if ($resultadoProductos && mysqli_num_rows($resultadoProductos) > 0) {
-    echo "<table class='table'>";
-    echo "<thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo</th>
-                <th>Nombre</th>
-                <th>Marca</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Disponibilidad</th>
-                <th>Acciones</th>
-            </tr>
-          </thead>";
-    echo "<tbody>";
-    
-    while ($row = mysqli_fetch_assoc($resultadoProductos)) {
-        echo "<tr>";
-        echo "<td class='text-center'>{$row['idProductos']}</td>";
-        echo "<td class='text-center'>{$row['Tipo_Productos']}</td>";
-        echo "<td class='text-center'>{$row['Nombre_producto']}</td>";
-        echo "<td class='text-center'>{$row['Marca']}</td>";
-        echo "<td class='text-center'>{$row['Descripcion_Productos']}</td>";
-        echo "<td class='text-center'>{$row['Cantidad_Productos']}</td>";
-        echo "<td class='text-center'>$" . number_format($row['Precio'], 2) . "</td>";
-        echo "<td class='text-center'>" . ($row['Cantidad_Productos'] > 0 ? 'Disponible' : 'Agotado') . "</td>";
-        echo "<td class='text-center'>
-        <button class='btn btn-sm btn-warning actualizar-btn' 
-                data-id='{$row['idProductos']}' 
-                data-tipo='{$row['Tipo_Productos']}' 
-                data-nombre='{$row['Nombre_producto']}' 
-                data-marca='{$row['Marca']}' 
-                data-descripcion='{$row['Descripcion_Productos']}' 
-                data-cantidad='{$row['Cantidad_Productos']}' 
-                data-precio='{$row['Precio']}'>
-            Actualizar
-        </button>
-    <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idProductos']}'>Eliminar</button>
-</td>";
-    echo "</tr>";
-    }
+                        // Mostrar los productos
+                        if ($resultadoProductos && mysqli_num_rows($resultadoProductos) > 0) {
+                            echo "<table class='table'>";
+                            echo "<thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Marca</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Imagen</th>
+                                    <th>Disponibilidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>";
+                            echo "<tbody>";
 
-    echo "</tbody>";
-    echo "</table>";
-} else {
-    echo "<p class='text-center'>No hay productos disponibles.</p>";
-}
-// Cerrar la conexión
-mysqli_close($conexion);
-?>
+                            while ($row = mysqli_fetch_assoc($resultadoProductos)) {
+                                // Escapar caracteres especiales
+                                $idProducto = htmlspecialchars($row['idProductos']);
+                                $tipoProducto = htmlspecialchars($row['Tipo_Productos']);
+                                $nombreProducto = htmlspecialchars($row['Nombre_producto']);
+                                $marcaProducto = htmlspecialchars($row['Marca']);
+                                $descripcionProducto = htmlspecialchars($row['Descripcion_Productos']);
+                                $cantidadProducto = htmlspecialchars($row['Cantidad_Productos']);
+                                $precioProducto = htmlspecialchars($row['Precio']);
+                                $imagenBase64 = htmlspecialchars($row['imagen']);
+
+                                echo "<tr>";
+                                echo "<td class='text-center'>{$idProducto}</td>";
+                                echo "<td class='text-center'>{$tipoProducto}</td>";
+                                echo "<td class='text-center'>{$nombreProducto}</td>";
+                                echo "<td class='text-center'>{$marcaProducto}</td>";
+                                echo "<td class='text-center'>{$descripcionProducto}</td>";
+                                echo "<td class='text-center'>{$cantidadProducto}</td>";
+                                echo "<td class='text-center'>$" . number_format($precioProducto, 2) . "</td>";
+
+                                if (!empty($row['imagen'])) {
+                                    $imagenBase64 = 'data:image/jpeg;base64,' . base64_encode($row['imagen']);
+                                    echo "<td class='text-center'><img src='{$imagenBase64}' alt='Producto' style='width: 100px; height: auto;'></td>";
+                                } else {
+                                    echo "<td class='text-center'>Sin imagen</td>";
+                                }
+                                
+
+                                echo "<td class='text-center'>" . ($cantidadProducto > 0 ? 'Disponible' : 'Agotado') . "</td>";
+                                echo "<td class='text-center'>
+                                    <button class='btn btn-sm btn-warning actualizar-btn' 
+                                            data-id='{$idProducto}' 
+                                            data-tipo='{$tipoProducto}' 
+                                            data-nombre='{$nombreProducto}' 
+                                            data-marca='{$marcaProducto}' 
+                                            data-descripcion='{$descripcionProducto}' 
+                                            data-cantidad='{$cantidadProducto}' 
+                                            data-precio='{$precioProducto}' 
+                                            data-imagen='{$imagenBase64}'>
+                                        Actualizar
+                                    </button>
+                            <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idProductos']}'>Eliminar</button>
+                        </td>";
+                                echo "</tr>";
+                            }
+
+                            echo "</tbody>";
+                            echo "</table>";
+                        } else {
+                            echo "<p class='text-center'>No hay productos disponibles.</p>";
+                        }
+
+                        // Cerrar la conexión
+                        mysqli_close($conexion);
+                        ?>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-   <!-- Paginación -->
-<nav aria-label="Paginación de productos">
-    <ul class="pagination justify-content-center">
-        <?php
-        // Número máximo de botones de páginas visibles
-        $maxBotones = 5;
 
-        // Calcular el rango de páginas a mostrar
-        $inicioRango = max(1, $paginaActual - floor($maxBotones / 2));
-        $finRango = min($totalPaginas, $inicioRango + $maxBotones - 1);
+    <!-- Paginación -->
+    <nav aria-label="Paginación de productos">
+        <ul class="pagination justify-content-center">
+            <?php
+            // Número máximo de botones de páginas visibles
+            $maxBotones = 5;
 
-        if ($paginaActual > 1) {
-            echo "<li class='page-item'><a class='page-link' href='?pagina=" . ($paginaActual - 1) . "'>Anterior</a></li>";
-        }
+            // Calcular el rango de páginas a mostrar
+            $inicioRango = max(1, $paginaActual - floor($maxBotones / 2));
+            $finRango = min($totalPaginas, $inicioRango + $maxBotones - 1);
 
-        for ($i = $inicioRango; $i <= $finRango; $i++) {
-            $active = ($i == $paginaActual) ? 'active' : '';
-            echo "<li class='page-item $active'><a class='page-link' href='?pagina=$i'>$i</a></li>";
-        }
+            if ($paginaActual > 1) {
+                echo "<li class='page-item'><a class='page-link' href='?pagina=" . ($paginaActual - 1) . "'>Anterior</a></li>";
+            }
 
-        if ($paginaActual < $totalPaginas) {
-            echo "<li class='page-item'><a class='page-link' href='?pagina=" . ($paginaActual + 1) . "'>Siguiente</a></li>";
-        }
-        ?>
-    </ul>
-</nav>
+            for ($i = $inicioRango; $i <= $finRango; $i++) {
+                $active = ($i == $paginaActual) ? 'active' : '';
+                echo "<li class='page-item $active'><a class='page-link' href='?pagina=$i'>$i</a></li>";
+            }
+
+            if ($paginaActual < $totalPaginas) {
+                echo "<li class='page-item'><a class='page-link' href='?pagina=" . ($paginaActual + 1) . "'>Siguiente</a></li>";
+            }
+            ?>
+        </ul>
+    </nav>
 
 
 

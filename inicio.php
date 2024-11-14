@@ -59,25 +59,26 @@ if ($conn->connect_error) {
         /* Fuente principal */
     }
 
-    .card-title {
-        color: #9933cc;
-        /* Morado claro para links y títulos */
-        /* font-family: 'Freestyle Script', sans-serif; /* Fuente decorativa */
-    }
-
-    .card-text {
-        color: #666;
-        /* Gris más claro para texto */
-    }
-
-    .container {
-        padding: 20px;
-        /* Añadir espacio alrededor del contenido */
-    }
-
+    /* Estilo para garantizar que todas las cards tengan el mismo tamaño */
     .card {
-        margin-bottom: 20px;
-        /* Añadir espacio entre tarjetas */
+        height: 350px;
+        /* Altura fija para todas las cards */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-img-top {
+        height: 200px;
+        /* Altura fija para las imágenes */
+        object-fit: cover;
+        /* Ajustar imágenes sin distorsionarlas */
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
 
@@ -168,7 +169,7 @@ if ($conn->connect_error) {
 
     <section class="productos my-5">
         <h2 class="text-center my-5">Nuestros productos</h2>
-        <div class="container">
+        <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card text-center">

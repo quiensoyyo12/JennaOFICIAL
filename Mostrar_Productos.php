@@ -59,22 +59,32 @@ if (!$resultado) {
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
     <style>
-        .card img {
-            height: 200px;
-            object-fit: cover;
-        }
-
+        /* Ajustar el tamaño uniforme de las cards */
         .card {
-            margin-bottom: 20px;
+            height: 300px; /* Altura fija para todas las cards */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-img-top {
+            height: 150px; /* Altura fija para las imágenes */
+            object-fit: cover; /* Asegura que la imagen se recorte proporcionalmente */
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-<header>
-<div class="logo">
-    <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
-</div>
+    <header>
+        <div class="logo">
+            <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
+        </div>
         <div class="bars">
             <div class="line"></div>
             <div class="line"></div>
@@ -95,34 +105,34 @@ if (!$resultado) {
                     <a href="" class="">Contacto</a>
                 </li>
                 <div class="d-flex">
-                <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
-    <?php
-    echo htmlspecialchars($fila_ciudadano['Nombre']);
-    ?>
-    --
-</h5>
-                <!-- Button trigger modal -->
-                <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/salir-alt (2).png" alt="cerrar sesion" width="40" height="32"></a>
+                    <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
+                        <?php
+                        echo htmlspecialchars($fila_ciudadano['Nombre']);
+                        ?>
+                        --
+                    </h5>
+                    <!-- Button trigger modal -->
+                    <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/salir-alt (2).png" alt="cerrar sesion" width="40" height="32"></a>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 lemon-regular" id="exampleModalLabel">¿Estas Seguro?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p style="color: black;">Estas a Punto de Cerrar Sesión</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
-                                <a type="button" class="btn btn-primary" href="cerrarSesion.php">Cerrar Sesión</a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 lemon-regular" id="exampleModalLabel">¿Estas Seguro?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color: black;">Estas a Punto de Cerrar Sesión</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
+                                    <a type="button" class="btn btn-primary" href="cerrarSesion.php">Cerrar Sesión</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </ul>
         </nav>
     </header>
@@ -133,25 +143,7 @@ if (!$resultado) {
             <?php while ($producto = mysqli_fetch_assoc($resultado)): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"> <!-- Añadido margen inferior para separación -->
                     <div class="card h-100"> <!-- Añadido h-100 para que las tarjetas tengan la misma altura -->
-                        <?php
-                        // Asumiendo que la ruta de la imagen en la base de datos es correcta
-                        $imagen = !empty($producto['imagen'])
-                            ? htmlspecialchars($producto['imagen'])
-                            : 'imagenes/default.jpg'; // Ruta de la imagen por defecto
-                            if (!empty($producto['imagen'])) {
-                                $imagen = htmlspecialchars($producto['imagen']);
-                                if (!file_exists($imagen)) {
-                                    error_log("La imagen no existe: " . $imagen);
-                                }
-                            } else {
-                                $imagen = 'imagenes/default.jpg';
-                            }
-                        ?>
-                        <img
-                            src="<?php echo $imagen; ?>"
-                            class="card-img-top"
-                            alt="<?php echo htmlspecialchars($producto['Nombre_producto'] ?? 'Producto'); ?>">
-                            
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($producto['imagen']); ?>" class="card-img-top" alt="producto" loading="lazy">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <?php echo htmlspecialchars($producto['Nombre_producto'] ?? 'No disponible'); ?>
