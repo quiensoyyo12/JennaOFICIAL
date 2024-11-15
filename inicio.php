@@ -39,7 +39,7 @@ if ($conn->connect_error) {
     <!--Código para acentos y ñ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="login/styleP.css">
     <link rel="stylesheet" href="css/css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/bootstrap.min.js"></script>
@@ -79,6 +79,33 @@ if ($conn->connect_error) {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    /* Ajustes en el carrusel */
+    .carousel-section {
+        margin-top: 80px;
+        /* Espacio compensatorio igual a la altura del header */
+        padding: 0;
+    }
+
+    .carousel img {
+        height: 300px;
+        /* Ajustar la altura del carrusel */
+        object-fit: cover;
+        /* Ajustar las imágenes sin distorsión */
+    }
+
+    .carousel {
+        width: 100%;
+        /* Asegura que el carrusel ocupe todo el ancho */
+    }
+
+    /* Estilo responsivo adicional si es necesario */
+    @media (max-width: 768px) {
+        .carousel img {
+            height: 200px;
+            /* Reducir la altura en pantallas pequeñas */
+        }
     }
 </style>
 
@@ -138,6 +165,49 @@ if ($conn->connect_error) {
         </nav>
     </header>
 
+    <!-- Modal -->
+    <div class="modal" id="navModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <ul>
+                <li><a href="Mostrar_Productos.php">Productos</a></li>
+                <li><a href="#">Carrito</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href=""></a></li>
+                <div class="d-flex">
+                    <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
+                        <?php
+                        echo htmlspecialchars($fila_ciudadano['Nombre']);
+                        ?>
+                        --
+                    </h5>
+
+                    <!-- Button trigger modal -->
+                    <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/salir-alt (2).png" alt="cerrar sesion" width="40" height="32"></a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 lemon-regular" id="exampleModalLabel">¿Estas Seguro?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color: black;">Estas a Punto de Cerrar Sesión</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
+                                    <a type="button" class="btn btn-primary" href="cerrarSesion.php">Cerrar Sesión</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
     <section class="carousel-section my-5">
         <div id="carouselExampleInterval" class="carousel slide mx-auto" style="width: 100%; max-width: 100%;" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -162,39 +232,61 @@ if ($conn->connect_error) {
         </div>
     </section>
 
+    <script>
+        // Obtener los elementos
+        const bars = document.querySelector(".bars");
+        const modal = document.getElementById("navModal");
+        const closeBtn = document.querySelector(".close");
 
-    <script src="script2.js"></script>
+        // Mostrar el modal cuando se haga clic en el icono de las barras
+        bars.onclick = function() {
+            modal.style.display = "block";
+        };
+
+        // Cerrar el modal cuando se haga clic en la "X"
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Cerrar el modal si se hace clic fuera del modal
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 
 
 
     <section class="productos my-5">
         <h2 class="text-center my-5">Nuestros productos</h2>
-        <div class="container my-5">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Aretes.php';" style="cursor: pointer;">
                         <img src="images/aretes.jpg" class="card-img-top" alt="Aretes">
                         <div class="card-body">
                             <h5 class="card-title">Aretes</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Aretes.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Anillos.php';" style="cursor: pointer;">
                         <img src="images/anillos.jpg" class="card-img-top" alt="Anillos">
                         <div class="card-body">
                             <h5 class="card-title">Anillos</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Anillos.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Collares.php';" style="cursor: pointer;">
                         <img src="images/colar.jpg" class="card-img-top" alt="Collares">
                         <div class="card-body">
                             <h5 class="card-title">Collares</h5>
-                            <a href="#" class="btn btn-primary">Conozca más</a>
+                            <a href="Collares.php" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +309,7 @@ if ($conn->connect_error) {
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center">
+                    <div class="card text-center" onclick="location.href='Pulseras.php';" style="cursor: pointer;">
                         <img src="images/pulsera.jpg" class="card-img-top" alt="Pulseras">
                         <div class="card-body">
                             <h5 class="card-title">Pulseras</h5>
