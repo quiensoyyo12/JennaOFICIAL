@@ -138,7 +138,7 @@ if (!$resultado) {
                     <a href="inicio.php" class="">Inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Carrito</a>
+                    <a href="./Mostrar_Productos_Carrito.php" class="">Carrito</a>
                 </li>
                 <li>
                     <a href="" class="">Portafolio</a>
@@ -195,9 +195,16 @@ if (!$resultado) {
                                 <strong>Precio:</strong> $<?php echo is_numeric($producto['Precio']) ? number_format($producto['Precio'], 2) : 'No disponible'; ?>
                             </p>
                             <!-- Botón para agregar al carrito -->
-                            <button class="btn btn-primary btn-sm" onclick="agregarAlCarrito(<?php echo (int)$producto['idProductos']; ?>)">
-                                Agregar al carrito
-                            </button>
+                            <form method="post" class="agregar-al-carrito-form">
+    <input type="hidden" name="idProductos" value="<?php echo $producto['idProductos']; ?>">
+    <input type="hidden" name="Nombre_producto" value="<?php echo $producto['Nombre_producto']; ?>">
+    <input type="hidden" name="Precio" value="<?php echo $producto['Precio']; ?>">
+    <button type="button" class="agregar-al-carrito-btn">Agregar al carrito</button>
+</form>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -205,13 +212,9 @@ if (!$resultado) {
         </div>
     </div>
 
-    <script>
-        // Función para agregar productos al carrito
-        const agregarAlCarrito = (idProducto) => {
-            alert(`Producto con ID ${idProducto} agregado al carrito.`);
-            // Aquí puedes implementar la lógica de tu carrito de compras
-        };
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="carrito.js"></script>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
