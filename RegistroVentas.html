@@ -9,7 +9,95 @@
     <script src="js/bootstrap.min.js"></script>
     <title>Ventas</title>
 </head>
+<style>
+    body {
+            background-color: #f0e6ff; /* Lavanda claro */
+            color: #333; /* Gris oscuro */
+            font-family: Arial, sans-serif;
+        }
 
+        .form-control, .form-select {
+            background-color: transparent;
+            border: 1px solid #7a57d1; /* Bordes morado oscuro */
+            color: #333;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #4b27a6; /* Bordes más oscuros al enfocar */
+            box-shadow: 0 0 8px rgba(75, 39, 166, 0.5); /* Sombra suave */
+        }
+
+        .btn-primary {
+            background-color: #7a57d1;
+            border-color: #7a57d1;
+        }
+
+        .btn-primary:hover {
+            background-color: #4b27a6;
+            border-color: #4b27a6;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+        h2 {
+            color: #4b27a6; /* Morado oscuro */
+            font-weight: bold;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        table th, table td {
+            border: 1px solid #7a57d1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #7a57d1;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8f0ff;
+        }
+
+        table tr:hover {
+            background-color: #e0d4ff;
+        }
+</style>
 <body>
 
     <header>
@@ -43,12 +131,7 @@
     <div class="container text-center">
         <div class="row">
             <div class="col order-last">
-                <button class=" toggle-table">Mostrar Tabla</button>
-                <ul class="hidden-table">
-                        <li>Celda 1</li>
-                        <li>Celda 2</li>
-                        <li>Celda 3</li>
-                </ul>
+
             </div>
             <div class="col tu-clase">
                             <h2>Registro de ventas</h2>
@@ -113,7 +196,18 @@
                             </form>                            
                         </div>
                     <div class="col order-first">
-                    
+                        <button class="toggle-table btn btn-primary mb-3">Mostrar Tabla</button>
+                        <ul class="hidden-table list-unstyled">
+                            <li><a href="detalle_venta.html" class="btn btn-secondary mb-2">Alta Detalle de ventas</a></li>
+                            <li><a href="detalle_pedido1.php" class="btn btn-secondary mb-2">Alta Detalle de pedido</a></li>
+                            <li><a href="Productos.html" class="btn btn-secondary mb-2">Alta Productos</a></li>
+                            <li><a href="PedidosA.php" class="btn btn-secondary mb-2">Alta Pedidos</a></li>
+                            <li><a href="Permisos.html" class="btn btn-secondary mb-2">Permisos</a></li>
+                            <li><a href="RegistroProveedor.html" class="btn btn-secondary mb-2">Alta Proveedor</a></li>
+                            <li><a href="RegistroVentas.html" class="btn btn-secondary mb-2">Alta Ventas</a></li>
+                            <li><a href="TipoEmpleados.html" class="btn btn-secondary mb-2">Rol de empleado</a></li>
+                            <li><a href="Usuarios.html" class="btn btn-secondary mb-2">Alta Usuarios</a></li>
+                        </ul>
                     </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
     <!--Código para acentos y ñ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="login/styleP.css">
     <link rel="stylesheet" href="css/css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/bootstrap.min.js"></script>
@@ -19,48 +19,6 @@
 
 <!-- Diseño de fondo de la pagina web-->
 <style>
-    header {
-        display: flex;
-        align-items: center; /* Centra verticalmente los elementos */
-        justify-content: space-between; /* Espacia los elementos a los lados */
-        padding: 10px 20px; /* Ajusta según lo necesites */
-        background-color: black; /* Color de fondo */
-    }
-    
-    .logo-img {
-        max-height: 100px; /* Ajusta la altura máxima para que encaje en el header */
-        width: auto; /* Mantiene la proporción de la imagen */
-    }
-    
- 
-    .bars .line {
-        width: 25px; /* Ancho de las líneas */
-        height: 3px; /* Grosor de las líneas */
-        background-color: white; /* Color de las líneas */
-    }
-    
-    .nav-bar ul {
-        display: flex;
-        gap: 15px; /* Espacio entre los enlaces */
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .nav-bar a {
-        text-decoration: none;
-        color: white; /* Color de los enlaces */
-        padding: 8px 12px;
-        transition: background-color 0.3s;
-    }
-    
-    .nav-bar a:hover {
-        background-color: rgba(255, 255, 255, 0.2); /* Efecto hover */
-    }
-    
-    a {
-        text-decoration: none;
-    }
     body {
         background-color: #f0e6ff;
         /* Lavanda claro */
@@ -90,7 +48,30 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
     }
+/* Ajustes en el carrusel */
+.carousel-section {
+    margin-top: 80px; /* Espacio compensatorio igual a la altura del header */
+    padding: 0;
+}
+
+.carousel img {
+    height: 300px; /* Ajustar la altura del carrusel */
+    object-fit: cover; /* Ajustar las imágenes sin distorsión */
+}
+
+.carousel {
+    width: 100%; /* Asegura que el carrusel ocupe todo el ancho */
+}
+
+/* Estilo responsivo adicional si es necesario */
+@media (max-width: 768px) {
+    .carousel img {
+        height: 200px; /* Reducir la altura en pantallas pequeñas */
+    }
+}
+
     
 </style>
 
@@ -98,7 +79,7 @@
 
     <header>
         <div class="logo">
-            <img src="./images/logo_of.png" alt="Logo de la Empresa" class="logo-img">
+            <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
         </div>
         <div class="bars">
             <div class="line"></div>
@@ -108,54 +89,80 @@
         <nav class="nav-bar">
             <ul>
                 <li>
-                    <a href="Mostrar_productos_sinlogueo.php" class="">Productos</a>
+                    <a href="Mostrar_productos_sinlogueo.php">Productos</a>
                 </li>
                 <li>
-                    <a href="" class="">Carrito</a>
+                    <a href="#">Carrito</a>
                 </li>
                 <li>
-                    <a href="" class="">Contacto</a>
+                    <a href="#">Contacto</a>
                 </li>
                 <li>
-                    <a href="login.php" class="">Iniciar Sesión</a>
+                    <a href="login.php">Iniciar Sesion</a>
                 </li>
             </ul>
         </nav>
     </header>
+<!-- Modal -->
+<div class="modal" id="navModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <ul>
+            <li><a href="Mostrar_productos_sinlogueo.php">Productos</a></li>
+            <li><a href="#">Carrito</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="login.php">Iniciar Sesión</a></li>
+        </ul>
+    </div>
+</div>
 
-    <section class="carousel-section my-5">
-        <div id="carouselExampleInterval" class="carousel slide mx-auto" style="width: 100%; max-width: 100%;"
-            data-bs-ride="carousel">
+    <section class="carousel-section">
+        <div id="carouselExampleInterval" class="carousel slide mx-auto" style="width: 100%; max-width: 100%;" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="100">
-                    <img src="images/anim.jpg" class="d-block w-100" style="height: 300px; object-fit: cover;"
-                        alt="...">
+                <div class="carousel-item active" data-bs-interval="1000">
+                    <img src="images/anim.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="images/anime.jpg" class="d-block w-100" style="height: 300px; object-fit: cover;"
-                        alt="...">
+                    <img src="images/anime.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/Cartel.png" class="d-block w-100" style="height: 300px; object-fit: cover;"
-                        alt="...">
+                    <img src="images/Cartel.png" class="d-block w-100" alt="...">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
-                data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
     </section>
+<script>
+    // Obtener los elementos
+const bars = document.querySelector(".bars");
+const modal = document.getElementById("navModal");
+const closeBtn = document.querySelector(".close");
 
+// Mostrar el modal cuando se haga clic en el icono de las barras
+bars.onclick = function() {
+    modal.style.display = "block";
+};
 
-    <script src="script2.js"></script>
+// Cerrar el modal cuando se haga clic en la "X"
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+};
 
+// Cerrar el modal si se hace clic fuera del modal
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+</script>
 
 
     <section class="productos my-5">
@@ -163,7 +170,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-center"  onclick="location.href='Aretes.php';" style="cursor: pointer;">
+                    <div class="card text-center" onclick="location.href='Aretes.php';" style="cursor: pointer;">
                         <img src="images/aretes.jpg" class="card-img-top" alt="Aretes">
                         <div class="card-body">
                             <h5 class="card-title">Aretes</h5>
@@ -180,7 +187,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card text-center" onclick="location.href='Collares.php';" style="cursor: pointer;">
                         <img src="images/colar.jpg" class="card-img-top" alt="Collares">

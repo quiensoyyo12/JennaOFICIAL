@@ -11,7 +11,95 @@
     <script src="js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
+<style>
+    body {
+            background-color: #f0e6ff; /* Lavanda claro */
+            color: #333; /* Gris oscuro */
+            font-family: Arial, sans-serif;
+        }
 
+        .form-control, .form-select {
+            background-color: transparent;
+            border: 1px solid #7a57d1; /* Bordes morado oscuro */
+            color: #333;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #4b27a6; /* Bordes más oscuros al enfocar */
+            box-shadow: 0 0 8px rgba(75, 39, 166, 0.5); /* Sombra suave */
+        }
+
+        .btn-primary {
+            background-color: #7a57d1;
+            border-color: #7a57d1;
+        }
+
+        .btn-primary:hover {
+            background-color: #4b27a6;
+            border-color: #4b27a6;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+        h2 {
+            color: #4b27a6; /* Morado oscuro */
+            font-weight: bold;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        table th, table td {
+            border: 1px solid #7a57d1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #7a57d1;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8f0ff;
+        }
+
+        table tr:hover {
+            background-color: #e0d4ff;
+        }
+</style>
 <body>
     <header>
         <div class="logo">
@@ -25,7 +113,7 @@
         <nav class="nav-bar">
             <ul>
                 <li>
-                    <a href="" class="active">inicio</a>
+                    <a href="" class="">inicio</a>
                 </li>
                 <li>
                     <a href="" class="">Blog</a>
@@ -41,143 +129,87 @@
     </header>
     <script src="script2.js"></script>
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col order-last">
-                <button class="toggle-table">Mostrar Tabla</button>
-                <ul class="hidden-table">
-                        <li><a href="detalle_venta.html">Alta Detalle de ventas</a></li>
-                        <li><a href="detalle_pedido1.php">Alta Detalle de pedido</a></li>
-                        <li><a href="Productos.html">Alta Productos</a></li>
-                        <li><a href="PedidosA.php">Alta Pedidos</a></li>
-                        <li><a href="Permisos.html">Permisos</a></li>
-                        <li><a href="RegistroProveedor.html">Alta Proveedor</a></li>
-                        <li><a href="RegistroVentas.html">Alta Ventas</a></li>
-                        <li><a href="TipoEmpleados.html">Rol de empleado</a></li>
-                        <li><a href="Usuarios.html">Alta Usuarios</a></li>
-                        
-                </ul>
+
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col order-last">
+                      
+                    </div>
+                    <div class="col">
+                        <form id="frmEmpleados" action="empleados.php" method="post">
+                            <h2>Alta Empleados</h2>
+                            <div class="mb-3">
+                                <label for="Nombre">Nombre:</label>
+                                <input id="Nombre" name="Nombre" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Apellido_p">Apellido Paterno:</label>
+                                <input id="Apellido_p" name="Apellido_p" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Apellido_m">Apellido Materno:</label>
+                                <input id="Apellido_m" name="Apellido_m" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Correo">Correo:</label>
+                                <input id="Correo" name="Correo" type="email" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="contrasena">Contraseña:</label>
+                                <input id="contrasena" name="contrasena" type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Genero">Genero:</label>
+                                <select name="Genero" id="Genero" class="form-select">
+                                    <option selected>Seleccione un género</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="No binario">No binario</option>
+                                    <option value="Hélicoptero Apache">Hélicoptero Apache</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Telefono">Teléfono:</label>
+                                <input id="Telefono" name="Telefono" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="RFC">RFC:</label>
+                                <input id="RFC" name="RFC" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="idTiposEmp">Tipo de empleado:</label>
+                                <input id="idTiposEmp" name="idTiposEmp" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="idUsuario">Usuario:</label>
+                                <input id="idUsuario" name="idUsuario" type="text" class="form-control">
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="reset" class="btn btn-danger">Borrar</button>
+                                <button type="button" onclick="enviarFormulario('EliminarEmpleado.php')" class="btn btn-danger">Eliminar</button>
+                                <button type="button" onclick="enviarFormulario('Updateempleado.php')" class="btn btn-success">Actualizar</button>
+                                <button type="button" onclick="enviarFormulario('Consultaempleado.php')" class="btn btn-info">Consultar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col order-first">
+                        <button class="toggle-table btn btn-primary mb-3">Mostrar Tabla</button>
+                        <ul class="hidden-table list-unstyled">
+                            <li><a href="detalle_venta.html" class="btn btn-secondary mb-2">Alta Detalle de ventas</a></li>
+                            <li><a href="detalle_pedido1.php" class="btn btn-secondary mb-2">Alta Detalle de pedido</a></li>
+                            <li><a href="Productos.html" class="btn btn-secondary mb-2">Alta Productos</a></li>
+                            <li><a href="PedidosA.php" class="btn btn-secondary mb-2">Alta Pedidos</a></li>
+                            <li><a href="Permisos.html" class="btn btn-secondary mb-2">Permisos</a></li>
+                            <li><a href="RegistroProveedor.html" class="btn btn-secondary mb-2">Alta Proveedor</a></li>
+                            <li><a href="RegistroVentas.html" class="btn btn-secondary mb-2">Alta Ventas</a></li>
+                            <li><a href="TipoEmpleados.html" class="btn btn-secondary mb-2">Rol de empleado</a></li>
+                            <li><a href="Usuarios.html" class="btn btn-secondary mb-2">Alta Usuarios</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col tu-clase">
-                <form id="frmEmpleados" action="empleados.php" method="post">
-                    <h2>Alta Empleados</h2>
-                    
-                    <tr>
-                        <td>
-                            Nombre:
-                        </td>
-                        <td>
-                            <input id="Nombre" name="Nombre" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Apellido Paterno:
-                        </td>
-                        <td>
-                            <input id="Apellido_p" name="Apellido_p" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Apellido Materno:
-                        </td>
-                        <td>
-                            <input id="Apellido_m" name="Apellido_m" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Correo:
-                        </td>
-                        <td>
-                            <input id="Correo" name="Correo" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Contraseña:
-                        </td>
-                        <td>
-                            <input id="contrasena" name="contrasena" type="password" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Genero:
-                        </td>
-                        <td>
-                            <select name="Genero" id="Genero" class="form-select">
-                                <option selected>Seleccione un genero</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                                <option value="No binario">No binario</option>
-                                <option value="Hélicoptero Apache">Hélicoptero Apache</option>
-                                <option value="Otros">Otros</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Telefono:
-                        </td>
-                        <td>
-                            <input id="Telefono" name="Telefono" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            RFC:
-                        </td>
-                        <td>
-                            <input id="RFC" name="RFC" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tipo de empleado:
-                        </td>
-                        <td>
-                            <input id="idTiposEmp" name="idTiposEmp" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Usuario:
-                        </td>
-                        <td>
-                            <input id="idUsuario" name="idUsuario" type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <br>
-                    <tr>
-                        <td>
-                            <input id="Guardar" name="Guardar" type="submit" value="Guardar"
-                                class="btn btn-primary btn-mini">
-                        </td>
-                        <td>
-                            <input id="Borrar" name="Borrar" type="reset" value="Borrar"
-                                class="btn btn-danger btn-mini">
-                        </td>
-                    </tr>
-                    <td>
-                        <!-- Botón para eliminar -->
-                        <button type="button" onclick="enviarFormulario('EliminarEmpleado.php')"
-                            class="btn btn-danger btn-mini">Eliminar</button>
-                        <!-- Botón para actualizar -->
-                        <button type="button" onclick="enviarFormulario('Updateempleado.php')"
-                            class="btn btn-success btn-mini">Actualizar</button>
-                        <!-- Botón para consultar -->
-                        <button type="button" onclick="enviarFormulario('Consultaempleado.php')"
-                            class="btn btn-info btn-mini">Consultar</button>
-                    </td>
-                </form>
-            </div>
-            <div class="col order-first">
-                Third in DOM, ordered first
-            </div>
-        </div>
-    </div>
     <script>
         function enviarFormulario(url) {
             // Obtener el formulario

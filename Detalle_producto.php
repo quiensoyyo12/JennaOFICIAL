@@ -108,9 +108,13 @@
                             <p><strong>Cantidad disponible:</strong> <?php echo intval($producto['Cantidad_Productos']); ?></p>
                             <div class="btn-container">
                                 <!-- Botón Comprar con funcionalidad de modal -->
-                                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">Comprar</button>
-                                <!-- Botón Agregar al carrito -->
-                                <a href="#" class="btn btn-primary btn-lg">Agregar al carrito</a>
+                                <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Comprar
+                                </button>
+                                <!-- Botón Agregar al carrito con funcionalidad de modal -->
+                                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Agregar al carrito
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -128,7 +132,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
-                        Debe iniciar sesión para poder realizar esta acción. <br>
+                        Debe iniciar sesión para poder realizar esta acción.
                     </div>
                     <div class="modal-footer">
                         <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
@@ -138,7 +142,7 @@
             </div>
         </div>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
