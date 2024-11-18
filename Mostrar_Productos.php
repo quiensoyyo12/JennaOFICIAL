@@ -101,7 +101,7 @@ if (!$resultado) {
                     <a href="inicio.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Carrito</a>
+                    <a href="./Mostrar_Productos_Carrito.php" class="">Carrito</a>
                 </li>
                 <li>
                     <a href="" class="">Portafolio</a>
@@ -222,10 +222,24 @@ if (!$resultado) {
                                 <strong>Categoría:</strong> <?php echo htmlspecialchars($producto['Tipo_Productos'] ?? 'No disponible'); ?><br>
                                 <strong>Precio:</strong> $<?php echo is_numeric($producto['Precio']) ? number_format($producto['Precio'], 2) : 'No disponible'; ?>
                             </p>
+<<<<<<< HEAD
+                            <!-- Botón para agregar al carrito -->
+                            <form method="post" class="agregar-al-carrito-form">
+    <input type="hidden" name="idProductos" value="<?php echo $producto['idProductos']; ?>">
+    <input type="hidden" name="Nombre_producto" value="<?php echo $producto['Nombre_producto']; ?>">
+    <input type="hidden" name="Precio" value="<?php echo $producto['Precio']; ?>">
+    <button type="button" class="agregar-al-carrito-btn">Agregar al carrito</button>
+</form>
+
+
+
+
+=======
                             <!-- Evitar redirección al hacer clic en este botón -->
                             <button class="btn btn-primary btn-sm agregar-carrito" onclick="mostrarModal(event)">
                                 Agregar al carrito
                             </button>
+>>>>>>> 99c39061e2d1c6b9389b685ffdc0e108123d402f
                         </div>
                     </div>
                 </div>
@@ -233,6 +247,11 @@ if (!$resultado) {
         </div>
     </div>
 
+<<<<<<< HEAD
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="carrito.js"></script>
+
+=======
     <!-- Modal de advertencia -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -269,6 +288,7 @@ if (!$resultado) {
             modal.show();
         };
     </script>
+>>>>>>> 99c39061e2d1c6b9389b685ffdc0e108123d402f
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
