@@ -38,4 +38,3 @@ if ($resultado) {
 
 // Cierre de conexión
 mysqli_close($conexion);
-?>

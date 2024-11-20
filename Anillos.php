@@ -11,47 +11,6 @@
     
 </head>
 <style>
-        header {
-        display: flex;
-        align-items: center; /* Centra verticalmente los elementos */
-        justify-content: space-between; /* Espacia los elementos a los lados */
-        padding: 10px 20px; /* Ajusta según lo necesites */
-        background-color: black; /* Color de fondo */
-    }
-    
-    .logo-img {
-        max-height: 100px; /* Ajusta la altura máxima para que encaje en el header */
-        width: auto; /* Mantiene la proporción de la imagen */
-    }
-    
- 
-    .bars .line {
-        width: 25px; /* Ancho de las líneas */
-        height: 3px; /* Grosor de las líneas */
-        background-color: white; /* Color de las líneas */
-    }
-    
-    .nav-bar ul {
-        display: flex;
-        gap: 15px; /* Espacio entre los enlaces */
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .nav-bar a {
-        text-decoration: none;
-        color: white; /* Color de los enlaces */
-        padding: 8px 12px;
-        transition: background-color 0.3s;
-    }
-    
-    .nav-bar a:hover {
-        background-color: rgba(255, 255, 255, 0.2); /* Efecto hover */
-    }
-    
-    a {
-        text-decoration: none;
     /* Estilo para todas las tarjetas */
     .card {
         height: 100%; /* Asegura que todas tengan la misma altura */
@@ -75,7 +34,7 @@
 
 <header>
         <div class="logo">
-            <img src="./images/logo_of.png" alt="Logo de la Empresa" class="logo-img">
+            <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
         </div>
         <div class="bars">
             <div class="line"></div>

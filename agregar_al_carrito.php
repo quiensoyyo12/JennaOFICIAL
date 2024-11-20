@@ -2,14 +2,12 @@
 include 'conexion.php';
 session_start();
 
-// Validar si se envió el producto
 if (isset($_POST['idProductos'])) {
     $idProductos = (int)$_POST['idProductos'];
     $Nombre_producto = mysqli_real_escape_string($conexion, $_POST['Nombre_producto']);
     $Precio = (float)$_POST['Precio'];
-
-    // Establecer cantidad predeterminada a 1
-    $Cantidad_Productos = 1;
+    $Cantidad_Productos = (int)$_POST['Cantidad_Productos'];
+    $imagen = $_POST['imagen']; // Imagen codificada en base64
 
     // Consultar si el producto ya está en el carrito
     $query = "SELECT * FROM carrito WHERE idProductos = $idProductos";
@@ -20,18 +18,17 @@ if (isset($_POST['idProductos'])) {
     }
 
     if (mysqli_num_rows($resultado) == 0) {
-        // Si el producto no existe, agregarlo con cantidad 1
-        $query = "INSERT INTO carrito (idProductos, Nombre_producto, Precio, Cantidad_Productos) 
-                  VALUES ($idProductos, '$Nombre_producto', $Precio, $Cantidad_Productos)";
+        // Si el producto no existe, agregarlo con la cantidad seleccionada
+        $query = "INSERT INTO carrito (idProductos, Nombre_producto, Precio, Cantidad_Productos, imagen) 
+                  VALUES ($idProductos, '$Nombre_producto', $Precio, $Cantidad_Productos, '$imagen')";
         if (mysqli_query($conexion, $query)) {
-            // Devolver respuesta JSON sin redirigir
             echo json_encode(["success" => true, "message" => "Producto agregado al carrito."]);
         } else {
             echo json_encode(["success" => false, "message" => "Error al insertar el producto en el carrito."]);
         }
     } else {
-        // Si el producto ya existe, actualizar la cantidad en lugar de solo mostrar un mensaje
-        $query = "UPDATE carrito SET Cantidad_Productos = Cantidad_Productos + 1 WHERE idProductos = $idProductos";
+        // Si el producto ya existe, actualizar la cantidad
+        $query = "UPDATE carrito SET Cantidad_Productos = Cantidad_Productos + $Cantidad_Productos WHERE idProductos = $idProductos";
         if (mysqli_query($conexion, $query)) {
             echo json_encode(["success" => true, "message" => "Producto actualizado en el carrito."]);
         } else {
@@ -41,6 +38,3 @@ if (isset($_POST['idProductos'])) {
 } else {
     echo json_encode(["success" => false, "message" => "Datos del producto no válidos."]);
 }
-
-
-

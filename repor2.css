@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
+/* General */
+/*body {
+    font-family: cursive;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}*/
+
+.lemon-regular {
+    font-family: "Lemon", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+h1, h5 {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.navbar .d-flex h5 {
+    margin-right: 15px;
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    opacity: 0.8;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    color: #0056b3;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Formulario de Reportes */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"], input[type="datetime-local"], select {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+input[type="submit"], input[type="reset"] {
+    margin-right: 10px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="reset"] {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    opacity: 0.9;
+}
+
+/* Tarjetas de Reportes */
+.card {
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #0056b3;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* Buscador */
+form#buscador {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+form#buscador input[type="search"] {
+    width: 300px;
+    padding: 5px;
+}
+
+form#buscador button {
+    margin-left: 10px;
+}

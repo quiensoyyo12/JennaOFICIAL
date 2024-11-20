@@ -58,7 +58,7 @@ if ($conn->connect_error) {
         <nav class="nav-bar">
             <ul>
                 <li>
-                    <a href="" class="active">inicio</a>
+                    <a href="index.php" class="">inicio</a>
                 </li>
                 <li>
                     <a href="" class="">Blog</a>
@@ -109,7 +109,7 @@ if ($conn->connect_error) {
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
-                <a href="reporte_productos.php" class="btn btn-primary">Generar Reporte PDF</a>
+                    <a href="reporte_productos.php" class="btn btn-primary">Generar Reporte PDF</a>
                     <table id="datatable_products" class="table table-striped table-bordered">
                         <caption></caption>
 
@@ -186,7 +186,7 @@ if ($conn->connect_error) {
                                 } else {
                                     echo "<td class='text-center'>Sin imagen</td>";
                                 }
-                                
+
 
                                 echo "<td class='text-center'>" . ($cantidadProducto > 0 ? 'Disponible' : 'Agotado') . "</td>";
                                 echo "<td class='text-center'>
@@ -259,7 +259,7 @@ if ($conn->connect_error) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="updateForm">
+                    <form id="updateForm" enctype="multipart/form-data">
                         <input type="hidden" id="update-id" name="id">
                         <div class="mb-3">
                             <label for="update-tipo" class="form-label">Tipo de Producto</label>
@@ -285,7 +285,12 @@ if ($conn->connect_error) {
                             <label for="update-precio" class="form-label">Precio</label>
                             <input type="number" step="0.01" class="form-control" id="update-precio" name="precio">
                         </div>
+                        <div class="mb-3">
+                            <label for="update-imagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="update-imagen" name="imagen" accept="image/*">
+                        </div>
                     </form>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -331,20 +336,9 @@ if ($conn->connect_error) {
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Actualizar la fila correspondiente en la tabla
-                            const row = document.querySelector(`tr[data-id="${formData.get('id')}"]`);
-                            row.querySelector('.tipo').textContent = formData.get('tipo');
-                            row.querySelector('.nombre').textContent = formData.get('nombre');
-                            row.querySelector('.marca').textContent = formData.get('marca');
-                            row.querySelector('.descripcion').textContent = formData.get('descripcion');
-                            row.querySelector('.cantidad').textContent = formData.get('cantidad');
-                            row.querySelector('.precio').textContent = `$${parseFloat(formData.get('precio')).toFixed(2)}`;
-
-                            // Cerrar el modal
-                            const modal = bootstrap.Modal.getInstance(document.getElementById('updateModal'));
-                            modal.hide();
-
                             alert('Producto actualizado con éxito.');
+                            // Redirigir a la misma página
+                            window.location.href = window.location.href; // Refresca la página actual
                         } else {
                             alert(`Error al actualizar el producto: ${data.message}`);
                         }
@@ -354,13 +348,14 @@ if ($conn->connect_error) {
                         alert('Hubo un error al procesar la solicitud.');
                     })
                     .finally(() => {
-                        // Reactivar el botón
                         saveChangesBtn.disabled = false;
                         saveChangesBtn.textContent = "Actualizar";
                     });
             });
         });
     </script>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Manejar evento de eliminar

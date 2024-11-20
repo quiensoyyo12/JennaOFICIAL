@@ -56,7 +56,7 @@ if ($conn->connect_error) {
         <nav class="nav-bar">
             <ul>
                 <li>
-                    <a href="" class="">inicio</a>
+                    <a href="index.php" class="">inicio</a>
                 </li>
                 <li>
                     <a href="" class="">Blog</a>

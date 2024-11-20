@@ -52,7 +52,7 @@ if (!$resultado) {
 </head>
 
 <body>
-<header>
+    <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
         </div>
@@ -81,41 +81,40 @@ if (!$resultado) {
 
 
     <div class="modal" id="navModal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <ul>
-            <li><a href="Mostrar_productos_sinlogueo.php">Productos</a></li>
-            <li><a href="#">Carrito</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="login.php">Iniciar Sesión</a></li>
-        </ul>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="#">Carrito</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="login.php">Iniciar Sesión</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<script>
-    // Obtener los elementos
-const bars = document.querySelector(".bars");
-const modal = document.getElementById("navModal");
-const closeBtn = document.querySelector(".close");
+    <script>
+        // Obtener los elementos
+        const bars = document.querySelector(".bars");
+        const modal = document.getElementById("navModal");
+        const closeBtn = document.querySelector(".close");
 
-// Mostrar el modal cuando se haga clic en el icono de las barras
-bars.onclick = function() {
-    modal.style.display = "block";
-};
+        // Mostrar el modal cuando se haga clic en el icono de las barras
+        bars.onclick = function() {
+            modal.style.display = "block";
+        };
 
-// Cerrar el modal cuando se haga clic en la "X"
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-};
+        // Cerrar el modal cuando se haga clic en la "X"
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
 
-// Cerrar el modal si se hace clic fuera del modal
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
-
-</script>
+        // Cerrar el modal si se hace clic fuera del modal
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 
     <div class="container my-4">
         <div class="row">
@@ -177,15 +176,19 @@ window.onclick = function(event) {
             modal.show();
         };
     </script>
-            <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                document.querySelectorAll("img[data-src]").forEach(img => {
-                    img.src = img.dataset.src;
-                });
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll("img[data-src]").forEach(img => {
+                img.src = img.dataset.src;
             });
-        </script>
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+<?php
+mysqli_free_result($resultado);
+mysqli_close($conexion);
+?>

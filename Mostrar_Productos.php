@@ -3,8 +3,8 @@
 session_start();
 
 if (!isset($_SESSION['id'])) {
-  header("Location: login.php");
-  exit();
+    header("Location: login.php");
+    exit();
 }
 
 // Ahora puedes acceder al ID del usuario logueado
@@ -25,7 +25,7 @@ $dbname = "jennawork";
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Verifica la conexión
 if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
 
@@ -57,11 +57,16 @@ if (!$resultado) {
     <title>Mostrar Productos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
     <style>
+        /* Estilo general para las cards originales */
         .card {
             height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative; /* Permite que los elementos internos se posicionen con precisión */
         }
 
         .card-img-top {
@@ -77,11 +82,82 @@ if (!$resultado) {
             text-align: center;
         }
 
+        /* Efecto hover para las cards originales */
         .card:hover {
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+           
         }
+
+ /* Hover container inside the card */
+ .hover-container {
+        position: absolute;
+        bottom: 0; /* Aparece al final de la tarjeta */
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 10; /* Asegura que se muestre encima del contenido */
+    }
+
+    .card:hover .hover-container {
+        opacity: 1;
+        visibility: visible;
+    }
+
+        /* Estilos específicos para las cards con hover interactivo */
+        .card-hover-interactive {
+            position: relative;
+            overflow: visible; /* Permite que los elementos se extiendan fuera del contenedor */
+        }
+
+        .card-hover-interactive .hover-container {
+            position: absolute;
+            bottom: -100%;
+            /* Oculto por defecto */
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: bottom 0.3s ease;
+        }
+
+        .card-hover-interactive:hover .hover-container {
+            bottom: 0;
+            /* Aparece cuando se hace hover */
+        }
+
+        /* Contenedor de cantidad interactiva */
+        .cantidad-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cantidad {
+            font-size: 1rem;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Ensures the card text and hover align */
+    .card-body {
+        margin-bottom: 50px; /* Deja espacio para el hover-container dentro de la tarjeta */
+    }
     </style>
 </head>
 
@@ -101,7 +177,7 @@ if (!$resultado) {
                     <a href="inicio.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="./Mostrar_Productos_Carrito.php" class="">Carrito</a>
+                    <a href="carrito.php" class="">Carrito</a>
                 </li>
                 <li>
                     <a href="" class="">Portafolio</a>
@@ -209,67 +285,131 @@ if (!$resultado) {
             }
         };
     </script>
-    <div class="container my-4">
-        <div class="row">
-            <?php while ($producto = mysqli_fetch_assoc($resultado)): ?>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                    <div class="card h-100" onclick="redireccionar(event, <?php echo $producto['idProductos']; ?>)">
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($producto['imagen']); ?>"
-                            class="card-img-top" alt="producto" loading="lazy">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($producto['Nombre_producto'] ?? 'No disponible'); ?></h5>
-                            <p class="card-text">
-                                <strong>Categoría:</strong> <?php echo htmlspecialchars($producto['Tipo_Productos'] ?? 'No disponible'); ?><br>
-                                <strong>Precio:</strong> $<?php echo is_numeric($producto['Precio']) ? number_format($producto['Precio'], 2) : 'No disponible'; ?>
-                            </p>
-<<<<<<< HEAD
-                            <!-- Botón para agregar al carrito -->
-                            <form method="post" class="agregar-al-carrito-form">
-    <input type="hidden" name="idProductos" value="<?php echo $producto['idProductos']; ?>">
-    <input type="hidden" name="Nombre_producto" value="<?php echo $producto['Nombre_producto']; ?>">
-    <input type="hidden" name="Precio" value="<?php echo $producto['Precio']; ?>">
-    <button type="button" class="agregar-al-carrito-btn">Agregar al carrito</button>
-</form>
-
-
-
-
-=======
-                            <!-- Evitar redirección al hacer clic en este botón -->
-                            <button class="btn btn-primary btn-sm agregar-carrito" onclick="mostrarModal(event)">
-                                Agregar al carrito
-                            </button>
->>>>>>> 99c39061e2d1c6b9389b685ffdc0e108123d402f
+<div class="container my-4">
+    <div class="row">
+        <?php while ($producto = mysqli_fetch_assoc($resultado)): ?>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card card-hover-interactive h-100">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($producto['imagen']); ?>" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo htmlspecialchars($producto['Nombre_producto'] ?? 'No disponible'); ?></h5>
+                        <p class="card-text">
+                            <strong>Categoría:</strong> <?php echo htmlspecialchars($producto['Tipo_Productos'] ?? 'No disponible'); ?><br>
+                            <strong>Precio:</strong> $<?php echo is_numeric($producto['Precio']) ? number_format($producto['Precio'], 2) : 'No disponible'; ?>
+                        </p>
+                    </div>
+                    <div class="hover-container">
+                        <div class="cantidad-container">
+                            <button class="btn btn-sm btn-secondary cantidad-btn" data-action="decrement" data-id="<?php echo $producto['idProductos']; ?>">-</button>
+                            <span class="cantidad">1</span>
+                            <button class="btn btn-sm btn-secondary cantidad-btn" data-action="increment" data-id="<?php echo $producto['idProductos']; ?>">+</button>
                         </div>
+                        <form method="post" class="agregar-al-carrito-form">
+                            <input type="hidden" name="idProductos" value="<?php echo $producto['idProductos']; ?>">
+                            <input type="hidden" name="Nombre_producto" value="<?php echo htmlspecialchars($producto['Nombre_producto']); ?>">
+                            <input type="hidden" name="Precio" value="<?php echo htmlspecialchars($producto['Precio']); ?>">
+                            <input type="hidden" name="imagen" value="<?php echo base64_encode($producto['imagen']); ?>">
+                            <input type="hidden" name="Cantidad_Productos" class="cantidad-input" value="1">
+                            <button type="submit" class="btn btn-primary btn-sm agregar-al-carrito-btn">Agregar al carrito</button>
+                        </form>
                     </div>
                 </div>
-            <?php endwhile; ?>
-        </div>
-    </div>
-
-<<<<<<< HEAD
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="carrito.js"></script>
-
-=======
-    <!-- Modal de advertencia -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Advertencia</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Debe iniciar sesión para agregar productos al carrito.
-                </div>
-                <div class="modal-footer">
-                    <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
             </div>
-        </div>
+        <?php endwhile; ?>
     </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        // Mostrar el hover
+        function mostrarHover(card) {
+            const hoverContainer = card.querySelector('.hover-container');
+            hoverContainer.style.bottom = '0';
+        }
+
+        // Ocultar el hover
+        function ocultarHover(card) {
+            const hoverContainer = card.querySelector('.hover-container');
+            hoverContainer.style.bottom = '-100%';
+        }
+        $(document).ready(function () {
+    // Modificar cantidad en la interfaz al hacer clic en + o -
+    $('.cantidad-btn').click(function () {
+        var action = $(this).data('action');
+        var cantidadContainer = $(this).siblings('.cantidad'); // Contenedor de cantidad visual
+        var cantidad = parseInt(cantidadContainer.text(), 10);
+        
+        if (action === 'increment') {
+            cantidad++;
+        } else if (action === 'decrement' && cantidad > 1) { // Evitar cantidades menores a 1
+            cantidad--;
+        }
+
+        cantidadContainer.text(cantidad); // Actualizar cantidad en la vista
+        $(this).closest('.hover-container').find('.cantidad-input').val(cantidad); // Actualizar campo oculto
+    });
+
+    // Manejo de agregar al carrito
+    $('.agregar-al-carrito-btn').click(function (e) {
+        e.preventDefault(); // Prevenir el envío tradicional
+
+        var form = $(this).closest('.agregar-al-carrito-form');
+        var cantidad = parseInt(form.find('.cantidad-input').val(), 10) || 1; // Obtener cantidad seleccionada
+        form.find('.cantidad-input').val(cantidad); // Establecer cantidad en el campo oculto
+
+        var formData = form.serialize(); // Serializar los datos del formulario
+
+        $.ajax({
+            type: 'POST',
+            url: 'agregar_al_carrito.php', // Enviar datos al carrito
+            data: formData,
+            success: function (response) {
+                var data = JSON.parse(response);
+                if (data.success) {
+                    alert(data.message); // Mostrar mensaje de éxito
+                    // Actualizar la cantidad en el inventario
+                    actualizarCantidadInventario(data.idProductos, cantidad);
+                } else {
+                    alert(data.message); // Mostrar mensaje de error
+                }
+            },
+            error: function () {
+                alert('Error al agregar el producto al carrito.');
+            }
+        });
+    });
+
+    function actualizarCantidadInventario(idProducto, cantidad) {
+        // Llamada para actualizar el inventario
+        $.ajax({
+            type: 'POST',
+            url: 'actualizar_cantidad.php', // Ruta del archivo PHP que actualiza el inventario
+            contentType: 'application/json',
+            data: JSON.stringify({
+                idProducto: idProducto,
+                nuevaCantidad: cantidad,
+            }),
+            success: function (response) {
+                var data = JSON.parse(response);
+                if (data.success) {
+                    console.log(`Inventario actualizado para el producto ${idProducto}`);
+                } else {
+                    console.error(`Error al actualizar inventario: ${data.error}`);
+                }
+            },
+            error: function () {
+                console.error('Error en la actualización del inventario.');
+            }
+        });
+    }
+});
+
+    </script>
+
+
 
     <script>
         // Función para redirigir al detalle del producto
@@ -278,7 +418,7 @@ if (!$resultado) {
             if (event.target.classList.contains('agregar-carrito')) {
                 return; // No redirigir si se hizo clic en el botón
             }
-            window.location.href = `Detalle_producto.php?id=${idProducto}`;
+            window.location.href = `Detalle_productologeo.php?id=${idProducto}`;
         };
 
         // Función para mostrar el modal
@@ -288,7 +428,6 @@ if (!$resultado) {
             modal.show();
         };
     </script>
->>>>>>> 99c39061e2d1c6b9389b685ffdc0e108123d402f
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

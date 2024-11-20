@@ -1,0 +1,107 @@
+/* Estilo general del body */
+body {
+    background-color: #f0e6ff; /* Lavanda claro */
+    color: #333; /* Gris oscuro */
+    font-family: Arial, sans-serif; /* Fuente sans-serif */
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Título principal */
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #444; /* Gris medio */
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Imagen del producto */
+.card img {
+    object-fit: cover;
+    height: 100%;
+    max-height: 150px;
+}
+
+/* Botones de cantidad */
+.cantidad-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Resumen */
+.card .card-body {
+    text-align: center;
+}
+
+/* Botón "Finalizar compra" */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Botón "Eliminar" */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Mensaje de alerta */
+.alert {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.alert-warning {
+    background-color: #fff3cd; /* Amarillo claro */
+    color: #856404; /* Marrón oscuro */
+    border: 1px solid #ffeeba;
+}
+
+/* Texto del total */
+.text-right {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.text-right h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}

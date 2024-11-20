@@ -59,16 +59,16 @@ if ($conn->connect_error) {
         <nav class="nav-bar">
             <ul>
                 <li>
-                    <a href="" class="active">inicio</a>
+                    <a href="index.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Blog</a>
+                    <a href="" class=""></a>
                 </li>
                 <li>
-                    <a href="" class="">Portafolio</a>
+                    <a href="" class=""></a>
                 </li>
                 <li>
-                    <a href="" class="">Contacto</a>
+                    <a href="" class=""></a>
                 </li>
                 <div class="d-flex">
                 <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
