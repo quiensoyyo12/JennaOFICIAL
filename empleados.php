@@ -1,77 +1,38 @@
-<html>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-<head>
-    <title>Alta de empleados/clientes</title>
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+    if (!$conexion) {
+        die("Error de conexión: " . mysqli_connect_error());
+    }
 
-    <link href="css/css/bootstrap.css"
-        rel="stylesheet"
-        crossorigin="anonymous">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/css/bootstrap.css"
-        rel="stylesheet"
-        crossorigin="anonymous">
+    // Validar y escapar datos
+    $idEmpleados = intval($_POST['idEmpleados']);
+    $Nombre = mysqli_real_escape_string($conexion, $_POST['Nombre']);
+    $Apellido_p = mysqli_real_escape_string($conexion, $_POST['Apellido_p']);
+    $Apellido_m = mysqli_real_escape_string($conexion, $_POST['Apellido_m']);
+    $Correo = mysqli_real_escape_string($conexion, $_POST['Correo']);
 
-</head>
+    $Genero = mysqli_real_escape_string($conexion, $_POST['Genero']);
+    $Telefono = mysqli_real_escape_string($conexion, $_POST['Telefono']);
+    $RFC = mysqli_real_escape_string($conexion, $_POST['RFC']);
+    $idTiposEmp = intval($_POST['idTiposEmp']);
+    $idUsuario = intval($_POST['idUsuario']);
 
-<body>
-    <div class="container text-center">
+    // Consulta
+    $Consulta = "INSERT INTO empleados (idEmpleados, Nombre, Apellido_p, Apellido_m, Correo,  Genero, Telefono, RFC, idTiposEmp, idUsuario) 
+                 VALUES ('$idEmpleados', '$Nombre', '$Apellido_p', '$Apellido_m', '$Correo', '$Genero', '$Telefono', '$RFC', '$idTiposEmp', '$idUsuario')";
 
-        <div class="row">
-            <div class="col">
+    // Ejecutar consulta
+    if (mysqli_query($conexion, $Consulta)) {
+        // Redirigir con mensaje de éxito
+        header('Location: RegistroEmpleadosAdmin.php?success=true');
+        exit;
+    } else {
+        echo "Error: " . $Consulta . "<br>" . mysqli_error($conexion);
+    }
 
-            </div>
-
-            <div class="col-6">
-                <h2>Alta de empleados</h2>
-                <?php
-                
-                $Nombre = $_POST['Nombre'];
-                $Apellido_p = $_POST['Apellido_p'];
-                $Apellido_m = $_POST['Apellido_m'];
-                $Correo = $_POST['Correo'];
-                $contrasena = $_POST['contrasena'];
-                $genero = $_POST['Genero'];
-                $Telefono = $_POST['Telefono'];
-                $RFC = $_POST['RFC'];
-                $idTiposEmp = $_POST['idTiposEmp'];
-                $idUsuario = $_POST['idUsuario'];
-                
-                echo "Nombre: " . $Nombre . "<br>";
-                echo "Apellido_p: " . $Apellido_p . "<br>";
-                echo "Apellido_m: " . $Apellido_m . "<br>";
-                echo "Correo: " . $Correo . "<br>";
-                echo "contrasena: " . $contrasena . "<br>";
-                echo "Telefono: " . $Telefono . "<br>";
-                echo "RFC: " . $RFC . "<br>";
-                echo "idTiposEmp: " . $idTiposEmp . "<br>";
-                echo "idUsuario: " . $idUsuario . "<br>";
-                $host = "localhost";
-                $usuario = "root";
-                $password = "";
-                $basedatos = "jennawork";
-                $conexion = mysqli_connect($host, $usuario, $password, $basedatos);
-                //or die ("Error en la B.D.");
-                $Consulta = "INSERT INTO empleados VALUES ('$idEmpleados','$Nombre','$Apellido_p','$Apellido_m','$Correo',
-                    '$contrasena','$genero','$Telefono','$RFC','$idTiposEmp','$idUsuario')";
-                $resultado = mysqli_query($conexion, $Consulta);
-                if ($resultado == 1) {
-                    echo "<h3> Datos insertados </h3>";
-                } else {
-                    echo "<h3>Datos no insertados</h3>";
-                }
-
-                ?>
-
-            </div>
-
-            <div class="col">
-
-            </div>
-        </div>
-    </div>
-
-
-</body>
-
-</html>
+    // Cerrar conexión
+    mysqli_close($conexion);
+}
+?>

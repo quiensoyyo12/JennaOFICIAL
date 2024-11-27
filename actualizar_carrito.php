@@ -1,27 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 <?php
-include('conexion.php'); // Conexión a la base de datos
+include 'conexion.php';
+header('Content-Type: application/json');
 
-if (isset($_POST['idProductos']) && isset($_POST['Cantidad_Productos'])) {
-    $idProductos = $_POST['idProductos'];
-    $Cantidad_Productos = $_POST['Cantidad_Productos'];
+$data = json_decode(file_get_contents("php://input"), true);
 
-    // Actualizar la cantidad del producto en el carrito
-    $query = "UPDATE carrito SET Cantidad_Productos = $Cantidad_Productos WHERE idProductos = $idProductos";
-    mysqli_query($conexion, $query);
+if (isset($data['idProductos'], $data['action'])) {
+    $idProductos = intval($data['idProductos']);
+    $action = $data['action'];
+
+    // Obtener cantidad actual
+    $query = "SELECT * FROM carrito WHERE idProductos = $idProductos";
+    $resultado = mysqli_query($conexion, $query);
+    if ($producto = mysqli_fetch_assoc($resultado)) {
+        $cantidadActual = intval($producto['Cantidad_Productos']);
+        $precio = floatval($producto['Precio']);
+
+        // Modificar cantidad según la acción
+        if ($action === "increment") {
+            $cantidadActual++;
+        } elseif ($action === "decrement" && $cantidadActual > 1) {
+            $cantidadActual--;
+        } else {
+            echo json_encode(["success" => false, "message" => "Cantidad mínima alcanzada."]);
+            exit;
+        }
+
+        // Actualizar la base de datos
+        $updateQuery = "UPDATE carrito SET Cantidad_Productos = $cantidadActual WHERE idProductos = $idProductos";
+        mysqli_query($conexion, $updateQuery);
+
+        // Calcular subtotal y total
+        $newSubtotal = $cantidadActual * $precio;
+
+        $totalQuery = "SELECT SUM(Precio * Cantidad_Productos) AS total FROM carrito";
+        $totalResult = mysqli_query($conexion, $totalQuery);
+        $newTotal = mysqli_fetch_assoc($totalResult)['total'];
+
+        echo json_encode([
+            "success" => true,
+            "newQuantity" => $cantidadActual,
+            "newSubtotal" => $newSubtotal,
+            "newTotal" => $newTotal,
+        ]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Producto no encontrado."]);
+    }
+} else {
+    echo json_encode(["success" => false, "message" => "Datos incompletos."]);
 }
-
-// Redirigir de vuelta a la página del carrito
-header('Location: Mostrar_Productos_Carrito.php');
-exit;
 ?>
-
-</body>
-</html>

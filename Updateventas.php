@@ -1,17 +1,15 @@
 <?php
 header('Content-Type: application/json');
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 $idVentas = $_POST['idVentas'];
 $total = $_POST['total'];
 $fecha = $_POST['Fecha_venta'];
-$idEmpleados = $_POST['idEmpleados'];
 $idPedidos = $_POST['idPedidos'];
 
 $query = "UPDATE ventas SET 
             total = '$total', 
-            Fecha_venta = '$fecha', 
-            idEmpleados = '$idEmpleados', 
+            Fecha_venta = '$fecha',
             idPedidos = '$idPedidos'
           WHERE idVentas = '$idVentas'";
 

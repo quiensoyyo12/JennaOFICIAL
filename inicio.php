@@ -10,7 +10,7 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
@@ -18,16 +18,7 @@ $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mys
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
-}
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 ?>
 
@@ -107,6 +98,21 @@ if ($conn->connect_error) {
       /* Reducir la altura en pantallas pequeñas */
     }
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Quitar subrayado de los enlaces en el menú */
+.nav-bar a {
+    text-decoration: none !important; /* Quita cualquier subrayado */
+}
+
+/* Opcional: Cambiar el color del texto al pasar el mouse */
+.nav-bar a:hover {
+    text-decoration: none; /* Asegura que no se subraye al pasar el mouse */
+    color: #000; /* Cambia el color del texto si deseas un efecto */
+}
+
 </style>
 
 <body>
@@ -129,8 +135,9 @@ if ($conn->connect_error) {
           <a href="carrito.php" class="">Carrito</a>
         </li>
         <li>
-          <a href="" class="">Contacto</a>
+          <a href="#about" class="">Contacto</a>
         </li>
+
         <div class="d-flex">
           <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
             <?php
@@ -171,41 +178,24 @@ if ($conn->connect_error) {
       <span class="close">&times;</span>
       <ul>
         <li><a href="Mostrar_Productos.php">Productos</a></li>
-        <li><a href="#">Carrito</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href=""></a></li>
+        <li><a href="carrito.php">Carrito</a></li>
         <div class="d-flex">
-          <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
+          <h5 style="color: black; font-size: 1.2rem; font-weight: bold;">
             <?php
             echo htmlspecialchars($fila_ciudadano['Nombre']);
             ?>
             --
           </h5>
 
-          <!-- Button trigger modal -->
-          <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="images/salir-alt (2).png" alt="cerrar sesion" width="40" height="32"></a>
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5 lemon-regular" id="exampleModalLabel">¿Estas Seguro?</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p style="color: black;">Estas a Punto de Cerrar Sesión</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar</button>
-                  <a type="button" class="btn btn-primary" href="cerrarSesion.php">Cerrar Sesión</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Imagen que redirige directamente a cerrar sesión -->
+          <a href="cerrarSesion.php">
+            <img src="images/cerrar-sesion.png" alt="Cerrar sesión" width="40" height="32">
+          </a>
         </div>
       </ul>
     </div>
+  </div>
+
   </div>
 
   <section class="carousel-section my-5">

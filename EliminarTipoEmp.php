@@ -2,8 +2,7 @@
 header('Content-Type: application/json');
 
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
-
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 // Obtener el ID enviado por POST
 $id = $_POST['id'] ?? null;
 

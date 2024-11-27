@@ -10,7 +10,7 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
@@ -18,16 +18,7 @@ $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mys
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 ?>
 <html>
@@ -45,6 +36,19 @@ if ($conn->connect_error) {
 </head>
 
 <body>
+    <style>
+        /* Quitar subrayado de los enlaces en el menú */
+.nav-bar a {
+    text-decoration: none !important; /* Quita cualquier subrayado */
+}
+
+/* Opcional: Cambiar el color del texto al pasar el mouse */
+.nav-bar a:hover {
+    text-decoration: none; /* Asegura que no se subraye al pasar el mouse */
+    color: #000; /* Cambia el color del texto si deseas un efecto */
+}
+
+    </style>
     <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
@@ -56,17 +60,17 @@ if ($conn->connect_error) {
         </div>
         <nav class="nav-bar">
             <ul>
-                <li>
-                    <a href="index.php" class="">inicio</a>
+            <li>
+                    <a href="inicioAdmin.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class="">Reportes</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class="">Tikects</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class=""></a>
                 </li>
                 <div class="d-flex">
                     <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
@@ -114,15 +118,14 @@ if ($conn->connect_error) {
                             <th>ID de la Venta</th>
                             <th>Total</th>
                             <th>Fecha</th>
-                            <th>ID Empleado</th>
-                            <th>ID Pedido</th>
+                            
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         // Configuración de la paginación
-                        $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
+                        include 'conexion.php'; // Asegúrate de que la ruta sea correcta
                         $registros_por_pagina = 5; // Registros por página
                         $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
                         $offset = ($pagina_actual - 1) * $registros_por_pagina;
@@ -137,15 +140,13 @@ if ($conn->connect_error) {
                                 echo "<td>{$row['idVentas']}</td>";
                                 echo "<td>{$row['total']}</td>";
                                 echo "<td>{$row['Fecha_venta']}</td>";
-                                echo "<td>{$row['idEmpleados']}</td>";
-                                echo "<td>{$row['idPedidos']}</td>";
+                               
                                 echo "<td>
                                         <button class='btn btn-sm btn-warning actualizar-btn' 
                                                 data-id='{$row['idVentas']}' 
                                                 data-total='{$row['total']}' 
                                                 data-fecha='{$row['Fecha_venta']}' 
-                                                data-empleado='{$row['idEmpleados']}' 
-                                                data-pedido='{$row['idPedidos']}'>
+                                                >
                                             Actualizar
                                         </button>
                                         <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idVentas']}'>Eliminar</button>
@@ -213,14 +214,7 @@ if ($conn->connect_error) {
                             <label for="update-fecha" class="form-label">Fecha</label>
                             <input type="date" class="form-control" id="update-fecha" name="Fecha_venta">
                         </div>
-                        <div class="mb-3">
-                            <label for="update-empleado" class="form-label">ID Empleado</label>
-                            <input type="text" class="form-control" id="update-empleado" name="idEmpleados">
-                        </div>
-                        <div class="mb-3">
-                            <label for="update-pedido" class="form-label">ID Pedido</label>
-                            <input type="text" class="form-control" id="update-pedido" name="idPedidos">
-                        </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -241,8 +235,7 @@ if ($conn->connect_error) {
                     document.getElementById('update-id').value = button.getAttribute('data-id');
                     document.getElementById('update-total').value = button.getAttribute('data-total');
                     document.getElementById('update-fecha').value = button.getAttribute('data-fecha');
-                    document.getElementById('update-empleado').value = button.getAttribute('data-empleado');
-                    document.getElementById('update-pedido').value = button.getAttribute('data-pedido');
+                    
                     modal.show();
                 });
             });

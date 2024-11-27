@@ -1,65 +1,29 @@
-<html>
+<?php
+$idUsuarios = $_POST['id'] ?? null;
+$usuario = $_POST['Nombre'] ?? '';
+$Apellido = $_POST['Apellido_paterno'] ?? '';
+$ApellidoM = $_POST['Apellido_materno'] ?? '';
+$Correo = $_POST['correo'] ?? '';
+$Password = $_POST['contrasena'] ?? '';
 
-<head>
-    <title>Usuarios</title>
-   
-    <link href="css/css/bootstrap.css" 
-        rel="stylesheet"
-         crossorigin="anonymous">
-         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" >
-        <link href="css/css/bootstrap.css"
-         rel="stylesheet"
-          crossorigin="anonymous">
-        
-</head>
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
-<body>
-    <div class="container text-center">
-    
-        <div class="row">
-            <div class="col">
-            
-            </div>
+if ($conexion) {
+    $Consulta = "INSERT INTO usuario (id, nombre, apellido_paterno, apellido_materno, correo, contrasena) 
+                 VALUES ('$idUsuarios', '$usuario', '$Apellido', '$ApellidoM', '$Correo', '$Password')";
+    $resultado = mysqli_query($conexion, $Consulta);
 
-            <div class="col-6">
-                <h2>Alta de usuarios</h2>
-                <?php
-                    $idUsuarios=$_POST['id'];
-                    $usuario=$_POST['Nombre'];
-                    $Apellido=$_POST['Apellido_paterno'];
-                    $ApellidoM=$_POST['Apellido_materno'];
-                    $Correo=$_POST['correo'];
-                    $Password=$_POST['contrasena'];
-                    echo "id: ".$idUsuarios."<br>";
-                    echo "Nombre: ".$usuario."<br>";
-                    echo "Apellido_paterno: ".$Apellido."<br>";
-                    echo "Apellido_materno: ".$ApellidoM."<br>";
-                    echo "correo: ".$Correo."<br>";
-                    echo "contrasena: ".$Password."<br>";                  
-                    $conexion = mysqli_connect("localhost","root","","jennawork")
-                    or die ("Error en la B.D.");
-                    $Consulta="INSERT INTO usuario VALUES('$idUsuarios', '$usuario' ,'$Apellido','$ApellidoM','$Correo','$Password')";
-                    $resultado=mysqli_query($conexion,$Consulta);
-                    if($resultado==1)
-                    {
-                        echo "<h3> datos insertados </h3>";
-                    }
-                    else
-                    {
-                        echo "<h3>datos no insertados</h3>";
-                    }
-                    
-                ?>
-                
-            </div>
+    // Redirección con el estado del resultado
+    if ($resultado) {
+        header("Location: UsuariosAdmin.php?success=true");
+    } else {
+        $error = mysqli_error($conexion);
+        header("Location: UsuariosAdmin.php?success=false&error=" . urlencode($error));
+    }
 
-            <div class="col">
-            
-            </div>
-        </div>
-    </div>
-    
-
-</body>
-</html>
+    mysqli_close($conexion);
+} else {
+    $error = mysqli_connect_error();
+    header("Location: UsuariosAdmin.php?success=false&error=" . urlencode($error));
+}
+?>

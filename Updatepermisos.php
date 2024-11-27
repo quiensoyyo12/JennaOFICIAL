@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 $idPermisos = $_POST['idPermisos'];
 $reportes = $_POST['reportes'];

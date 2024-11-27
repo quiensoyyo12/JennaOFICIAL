@@ -1,22 +1,32 @@
 <?php
-header('Content-Type: application/json');
-
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+if (!$conexion) {
+    die("Conexión fallida: " . mysqli_connect_error());
+}
 
-// Obtener el ID enviado por POST
-$id = $_POST['id'] ?? null;
+// Comprobar si se ha recibido un idEmpleados
+if (isset($_GET['id'])) {
+    $idEmpleado = $_GET['id'];
 
-if ($id) {
-    $query = "DELETE FROM empleados WHERE idEmpleados = '$id'";
-    if (mysqli_query($conexion, $query)) {
-        echo json_encode(['success' => true]);
+    // Preparar y ejecutar la consulta SQL para eliminar el empleado
+    $consulta = "DELETE FROM empleados WHERE idEmpleados = ?";
+    $stmt = mysqli_prepare($conexion, $consulta);
+    mysqli_stmt_bind_param($stmt, 'i', $idEmpleado);  // 'i' es para tipo entero
+    $resultado = mysqli_stmt_execute($stmt);
+
+    if ($resultado) {
+        // Redirigir de vuelta a la página principal (o tabla) después de eliminar
+        header("Location: Consultaempleado.php");  // Cambia "index.php" por la URL correcta
+        exit();
     } else {
-        echo json_encode(['success' => false, 'message' => mysqli_error($conexion)]);
+        echo "Error al eliminar el registro: " . mysqli_error($conexion);
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'ID no válido']);
+
+    // Cerrar la conexión
+    mysqli_stmt_close($stmt);
 }
 
 mysqli_close($conexion);
 ?>
+

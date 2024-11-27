@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 if (!$conexion) {
     echo json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos']);

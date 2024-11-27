@@ -27,8 +27,8 @@
                 echo "idPermisos: " . $idPermisos . "<br>";
                 echo "Reportes: " . $Reportes . "<br>";
                 echo "Consultas: " . $Consultas . "<br>";
-                $conexion = mysqli_connect("localhost", "root", "", "jennawork")
-                    or die("Error en la B.D.");
+                include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+
                 $Consulta = "INSERT INTO permisos VALUES('$idPermisos','$Reportes','$Consultas')";
                 $resultado = mysqli_query($conexion, $Consulta);
                 if ($resultado == 1) {

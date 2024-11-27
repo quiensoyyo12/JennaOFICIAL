@@ -10,7 +10,7 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
@@ -18,16 +18,7 @@ $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mys
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 ?>
 <!DOCTYPE html>
@@ -46,6 +37,19 @@ if ($conn->connect_error) {
 </head>
 
 <body>
+    <style>
+        /* Quitar subrayado de los enlaces en el menú */
+.nav-bar a {
+    text-decoration: none !important; /* Quita cualquier subrayado */
+}
+
+/* Opcional: Cambiar el color del texto al pasar el mouse */
+.nav-bar a:hover {
+    text-decoration: none; /* Asegura que no se subraye al pasar el mouse */
+    color: #000; /* Cambia el color del texto si deseas un efecto */
+}
+
+    </style>
     <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
@@ -57,17 +61,17 @@ if ($conn->connect_error) {
         </div>
         <nav class="nav-bar">
             <ul>
-                <li>
-                    <a href="index.php" class="">inicio</a>
+            <li>
+                    <a href="inicioAdmin.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Blog</a>
+                    <a href="#" class="">Reportes</a>
                 </li>
                 <li>
-                    <a href="" class="">Portafolio</a>
+                    <a href="#" class="">Tikects</a>
                 </li>
                 <li>
-                    <a href="" class="">Contacto</a>
+                    <a href="#" class=""></a>
                 </li>
                 <div class="d-flex">
                     <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
@@ -115,8 +119,7 @@ if ($conn->connect_error) {
 
                         <?php
                         // Conectar a la base de datos
-                        $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error en la B.D.");
-
+                        include 'conexion.php'; // Asegúrate de que la ruta sea correcta
                         // Número de productos por página
                         $productosPorPagina = 5;
 

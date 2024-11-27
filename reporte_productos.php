@@ -1,8 +1,10 @@
 <?php
-require('fpdf186/fpdf.php'); // Asegúrate de la ruta correcta
+require('fpdf186/fpdf.php');
 
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error en la B.D.");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+
+// Obtener productos para el reporte
 $consultaProductos = "SELECT * FROM productos";
 $resultadoProductos = mysqli_query($conexion, $consultaProductos);
 
@@ -32,14 +34,26 @@ while ($row = mysqli_fetch_assoc($resultadoProductos)) {
     $pdf->Cell(20, 10, $row['idProductos'], 1);
     $pdf->Cell(30, 10, $row['Tipo_Productos'], 1);
     $pdf->Cell(40, 10, $row['Nombre_producto'], 1);
-    $pdf->Cell(40, 10, $row['Marca'], 1);
+    $pdf->Cell(30, 10, $row['Marca'], 1);
     $pdf->Cell(50, 10, substr($row['Descripcion_Productos'], 0, 30), 1); // Limitar a 30 caracteres
     $pdf->Cell(20, 10, '$' . number_format($row['Precio'], 2), 1);
     $pdf->Ln();
 }
 
-// Cerrar la conexión
+// Guardar el archivo PDF en el servidor
+$nombreReporte = 'Reporte_Productos_' . date('Ymd_His') . '.pdf'; // Nombre único basado en la fecha
+$rutaArchivo = 'reportes/' . $nombreReporte; // Carpeta para almacenar reportes
+$pdf->Output('F', $rutaArchivo); // Guardar en el servidor
+
+// Insertar un respaldo en la tabla "respaldo"
+$fechaGeneracion = date('Y-m-d H:i:s');
+$queryInsertRespaldo = "INSERT INTO respaldo (nombre_reporte, fecha_generacion, ruta_archivo) VALUES ('$nombreReporte', '$fechaGeneracion', '$rutaArchivo')";
+mysqli_query($conexion, $queryInsertRespaldo);
+
+// Cerrar la conexión a la base de datos
 mysqli_close($conexion);
 
-// Salida del PDF
-$pdf->Output('D', 'Reporte_Productos.pdf'); // Descargar directamente
+// Redirigir al usuario a respaldos.php
+header('Location: respaldos.php');
+exit;
+?>

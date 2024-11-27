@@ -50,29 +50,44 @@
         justify-content: center;
 
     }
-/* Ajustes en el carrusel */
-.carousel-section {
-    margin-top: 80px; /* Espacio compensatorio igual a la altura del header */
-    padding: 0;
-}
 
-.carousel img {
-    height: 300px; /* Ajustar la altura del carrusel */
-    object-fit: cover; /* Ajustar las imágenes sin distorsión */
-}
-
-.carousel {
-    width: 100%; /* Asegura que el carrusel ocupe todo el ancho */
-}
-
-/* Estilo responsivo adicional si es necesario */
-@media (max-width: 768px) {
-    .carousel img {
-        height: 200px; /* Reducir la altura en pantallas pequeñas */
+    /* Ajustes en el carrusel */
+    .carousel-section {
+        margin-top: 80px;
+        /* Espacio compensatorio igual a la altura del header */
+        padding: 0;
     }
+
+    .carousel img {
+        height: 300px;
+        /* Ajustar la altura del carrusel */
+        object-fit: cover;
+        /* Ajustar las imágenes sin distorsión */
+    }
+
+    .carousel {
+        width: 100%;
+        /* Asegura que el carrusel ocupe todo el ancho */
+    }
+
+    /* Estilo responsivo adicional si es necesario */
+    @media (max-width: 768px) {
+        .carousel img {
+            height: 200px;
+            /* Reducir la altura en pantallas pequeñas */
+        }
+    }
+    /* Quitar subrayado de los enlaces en el menú */
+.nav-bar a {
+    text-decoration: none !important; /* Quita cualquier subrayado */
 }
 
-    
+/* Opcional: Cambiar el color del texto al pasar el mouse */
+.nav-bar a:hover {
+    text-decoration: none; /* Asegura que no se subraye al pasar el mouse */
+    color: #000; /* Cambia el color del texto si deseas un efecto */
+}
+
 </style>
 
 <body>
@@ -91,11 +106,12 @@
                 <li>
                     <a href="Mostrar_productos_sinlogueo.php">Productos</a>
                 </li>
+                <!-- Enlace del carrito que activa el modal -->
                 <li>
-                    <a href="#">Carrito</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Carrito</a>
                 </li>
                 <li>
-                    <a href="#">Contacto</a>
+                    <a href="#about" class="">Contacto</a>
                 </li>
                 <li>
                     <a href="login.php">Iniciar Sesion</a>
@@ -103,24 +119,28 @@
             </ul>
         </nav>
     </header>
-<!-- Modal -->
-<div class="modal" id="navModal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <ul>
-            <li><a href="Mostrar_productos_sinlogueo.php">Productos</a></li>
-            <li><a href="#">Carrito</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="login.php">Iniciar Sesión</a></li>
-        </ul>
+    <!-- Modal -->
+    <div class="modal" id="navModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <ul>
+                <li><a href="Mostrar_productos_sinlogueo.php">Productos</a></li>
+                <!-- Enlace del carrito que activa el modal -->
+                <li>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Carrito</a>
+                </li>
+                <li><a href="#about">Contacto</a></li>
+                <li><a href="login.php">Iniciar Sesión</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 
     <section class="carousel-section">
-        <div id="carouselExampleInterval" class="carousel slide mx-auto" style="width: 100%; max-width: 100%;" data-bs-ride="carousel">
+        <div id="carouselExampleInterval" class="carousel slide mx-auto" style="width: 100%; max-width: 100%;"
+            data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="1000">
-                    <img src="images/anim.jpg" class="d-block w-100" alt="...">
+                    <img src="imagenes/bisuteria.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
                     <img src="images/anime.jpg" class="d-block w-100" alt="...">
@@ -129,40 +149,66 @@
                     <img src="images/Cartel.png" class="d-block w-100" alt="...">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
     </section>
-<script>
-    // Obtener los elementos
-const bars = document.querySelector(".bars");
-const modal = document.getElementById("navModal");
-const closeBtn = document.querySelector(".close");
+    <script>
+        // Obtener los elementos
+        const bars = document.querySelector(".bars");
+        const modal = document.getElementById("navModal");
+        const closeBtn = document.querySelector(".close");
 
-// Mostrar el modal cuando se haga clic en el icono de las barras
-bars.onclick = function() {
-    modal.style.display = "block";
-};
+        // Mostrar el modal cuando se haga clic en el icono de las barras
+        bars.onclick = function () {
+            modal.style.display = "block";
+        };
 
-// Cerrar el modal cuando se haga clic en la "X"
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-};
+        // Cerrar el modal cuando se haga clic en la "X"
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+        };
 
-// Cerrar el modal si se hace clic fuera del modal
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+        // Cerrar el modal si se hace clic fuera del modal
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
 
-</script>
+    </script>
+    <!-- Modal de Advertencia -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Advertencia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    Debe iniciar sesión para poder realizar esta acción.
+                </div>
+                <div class="modal-footer">
+                    <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Detectar clic en el enlace del carrito
+        document.querySelector('a[data-bs-target="#loginModal"]').addEventListener('click', function (event) {
+            console.log('Modal de advertencia activado desde el carrito');
+        });
+    </script>
 
 
     <section class="productos my-5">
@@ -197,7 +243,7 @@ window.onclick = function(event) {
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <!-- <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card text-center">
                         <img src="images/albumes.jpg" class="card-img-top" alt="Álbumes">
                         <div class="card-body">
@@ -214,7 +260,7 @@ window.onclick = function(event) {
                             <a href="#" class="btn btn-primary">Conozca más</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card text-center" onclick="location.href='Pulseras.php';" style="cursor: pointer;">
                         <img src="images/pulsera.jpg" class="card-img-top" alt="Pulseras">
@@ -285,7 +331,7 @@ window.onclick = function(event) {
                         <p class="card-text">
                             WhatsApp: <a href="tel:9321085721" style="color: aquamarine; text-decoration: none;">932 108
                                 57 21</a><br>
-                            Facebook: <a href="https://facebook.com/JennaWork" target="_blank"
+                            Facebook: <a href="https://www.facebook.com/Jennartworkstore" target="_blank"
                                 style="color: aquamarine; text-decoration: none;">@JennaWork</a><br>
                             Instagram: <a href="https://instagram.com/JennaWork" target="_blank"
                                 style="color: aquamarine; text-decoration: none;">@JennaWork</a>

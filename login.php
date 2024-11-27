@@ -1,7 +1,6 @@
 <?php
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
-
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 if (!$conexion) {
     die("Error al conectar con la base de datos: " . mysqli_connect_error());
 }
@@ -24,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
         // Redirigir según el tipo de usuario
         if ($_SESSION['tipo_usuario'] == 'admin') {
-            header("Location: index.php"); // Redirigir a la página de administrador
+            header("Location: inicioAdmin.php"); // Redirigir a la página de administrador
         } elseif ($_SESSION['tipo_usuario'] == 'cliente') {
             header("Location: inicio.php"); // Redirigir a la página de cliente
         } elseif ($_SESSION['tipo_usuario'] == 'auxiliar') {
-            header("Location: index2.php"); // Redirigir a la página de auxiliar
+            header("Location: inicio2.php"); // Redirigir a la página de auxiliar
         } else {
             $error = "Tipo de usuario no reconocido";
         }
@@ -46,8 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registro'])) {
     $correo2 = $_POST['correo'];
     $password = $_POST['contrasena'];
 
-    $conexion2 = mysqli_connect("localhost", "root", "", "jennawork");
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
     // Insertar nuevo usuario en la base de datos
     $consulta_insertar = "INSERT INTO `usuario`(`Nombre`, `Apellido_paterno`, `Apellido_materno`, `correo`, `contrasena`, `tipo_usuario`) 
     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$correo2', '$password', 'cliente')"; // Se agrega 'cliente' por defecto

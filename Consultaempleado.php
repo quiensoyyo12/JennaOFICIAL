@@ -10,27 +10,18 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
-
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
 $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mysqli_error($conexion));
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -45,6 +36,19 @@ if ($conn->connect_error) {
 </head>
 
 <body>
+    <style>
+        /* Quitar subrayado de los enlaces en el menú */
+.nav-bar a {
+    text-decoration: none !important; /* Quita cualquier subrayado */
+}
+
+/* Opcional: Cambiar el color del texto al pasar el mouse */
+.nav-bar a:hover {
+    text-decoration: none; /* Asegura que no se subraye al pasar el mouse */
+    color: #000; /* Cambia el color del texto si deseas un efecto */
+}
+
+    </style>
     <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
@@ -56,17 +60,17 @@ if ($conn->connect_error) {
         </div>
         <nav class="nav-bar">
             <ul>
-                <li>
-                    <a href="index.php" class="">inicio</a>
+            <li>
+                    <a href="inicioAdmin.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class="">Reportes</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class="">Tikects</a>
                 </li>
                 <li>
-                    <a href="" class=""></a>
+                    <a href="#" class=""></a>
                 </li>
                 <div class="d-flex">
                     <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
@@ -103,113 +107,110 @@ if ($conn->connect_error) {
     <script src="script2.js"></script>
 
     <div class="container my-4">
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <h2 class="text-center mb-4">Lista de Empleados</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>idEmpleados</th>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
-                            <th>Genero</th>
-                            <th>Teléfono</th>
-                            <th>RFC</th>
-                            <th>Tipo de empleado</th>
-                            <th>idUsuarios</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Configuración de la paginación
-                        $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
-                        $registros_por_pagina = 5;
-                        $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-                        $offset = ($pagina_actual - 1) * $registros_por_pagina;
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Lista de Empleados</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>idEmpleados</th>
+                                <th>Nombre</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+                                <th>Correo</th>
+                                <th>Genero</th>
+                                <th>Teléfono</th>
+                                <th>RFC</th>
+                                <th>Tipo de empleado</th>
+                                <th>idUsuarios</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Configuración de la paginación
+                            include 'conexion.php'; // Asegúrate de que la ruta sea correcta                            $registros_por_pagina = 5;
+                            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                            $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
-                        // Consulta con paginación
-                        $consulta = "SELECT * FROM empleados LIMIT $registros_por_pagina OFFSET $offset";
-                        $resultado = mysqli_query($conexion, $consulta);
+                            // Consulta con paginación
+                            $consulta = "SELECT * FROM empleados LIMIT $registros_por_pagina OFFSET $offset";
+                            $resultado = mysqli_query($conexion, $consulta);
 
-                        if (mysqli_num_rows($resultado) > 0) {
-                            while ($row = mysqli_fetch_assoc($resultado)) {
-                                echo "<tr data-id='{$row['idEmpleados']}'>";
-                                echo "<td>{$row['idEmpleados']}</td>";
-                                echo "<td class='nombre'>{$row['Nombre']}</td>";
-                                echo "<td class='apellido_p'>{$row['Apellido_p']}</td>";
-                                echo "<td class='apellido_m'>{$row['Apellido_m']}</td>";
-                                echo "<td class='correo'>{$row['correo']}</td>";
-                                echo "<td class='contrasena'>{$row['contrasena']}</td>";
-                                echo "<td class='genero'>{$row['Genero']}</td>";
-                                echo "<td class='telefono'>{$row['Telefono']}</td>";
-                                echo "<td class='rfc'>{$row['rfc']}</td>";
-                                echo "<td class='idTiposEmp'>{$row['idTiposEmp']}</td>";
-                                echo "<td class='idUsuario'>{$row['idUsuario']}</td>";
-                                echo "<td>
-                    <button class='btn btn-sm btn-warning actualizar-btn' 
-                            data-id='{$row['idEmpleados']}'
-                            data-nombre='{$row['Nombre']}'
-                            data-apellido_p='{$row['Apellido_p']}'
-                            data-apellido_m='{$row['Apellido_m']}'
-                            data-correo='{$row['correo']}'
-                            data-contrasena='{$row['contrasena']}'
-                            data-genero='{$row['Genero']}'
-                            data-telefono='{$row['Telefono']}'
-                            data-rfc='{$row['rfc']}'
-                            data-idtipo='{$row['idTiposEmp']}'
-                            data-idusuario='{$row['idUsuario']}'>
-                        Actualizar
-                    </button>
-                    <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idEmpleados']}'>Eliminar</button>
-                  </td>";
-                                echo "</tr>";
+                            if (mysqli_num_rows($resultado) > 0) {
+                                while ($row = mysqli_fetch_assoc($resultado)) {
+                                    echo "<tr data-id='{$row['idEmpleados']}'>";
+                                    echo "<td>{$row['idEmpleados']}</td>";
+                                    echo "<td class='nombre'>{$row['Nombre']}</td>";
+                                    echo "<td class='apellido_p'>{$row['Apellido_p']}</td>";
+                                    echo "<td class='apellido_m'>{$row['Apellido_m']}</td>";
+                                    echo "<td class='correo'>{$row['correo']}</td>";
+                                    echo "<td class='genero'>{$row['Genero']}</td>";
+                                    echo "<td class='telefono'>{$row['Telefono']}</td>";
+                                    echo "<td class='rfc'>{$row['rfc']}</td>";
+                                    echo "<td class='idTiposEmp'>{$row['idTiposEmp']}</td>";
+                                    echo "<td class='idUsuario'>{$row['idUsuario']}</td>";
+                                    echo "<td>
+            <button class='btn btn-sm btn-warning actualizar-btn' 
+                    data-id='{$row['idEmpleados']}'
+                    data-nombre='{$row['Nombre']}'
+                    data-apellido_p='{$row['Apellido_p']}'
+                    data-apellido_m='{$row['Apellido_m']}'
+                    data-correo='{$row['correo']}'
+                    data-genero='{$row['Genero']}'
+                    data-telefono='{$row['Telefono']}'
+                    data-rfc='{$row['rfc']}'
+                    data-idtipo='{$row['idTiposEmp']}'
+                    data-idusuario='{$row['idUsuario']}'>
+                Actualizar
+            </button>
+            <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idEmpleados']}'>Eliminar</button>
+          </td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='12' class='text-center'>No hay datos disponibles</td></tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='12' class='text-center'>No hay datos disponibles</td></tr>";
-                        }
 
-                        // Calcular total de páginas
-                        $consulta_total = "SELECT COUNT(*) AS total FROM empleados";
-                        $resultado_total = mysqli_query($conexion, $consulta_total);
-                        $total_filas = mysqli_fetch_assoc($resultado_total)['total'];
-                        $total_paginas = ceil($total_filas / $registros_por_pagina);
+                            // Calcular total de páginas
+                            $consulta_total = "SELECT COUNT(*) AS total FROM empleados";
+                            $resultado_total = mysqli_query($conexion, $consulta_total);
+                            $total_filas = mysqli_fetch_assoc($resultado_total)['total'];
+                            $total_paginas = ceil($total_filas / $registros_por_pagina);
 
-                        mysqli_close($conexion);
-                        ?>
-                    </tbody>
-                </table>
+                            mysqli_close($conexion);
+                            ?>
 
-                <!-- Paginación -->
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <?php
-                        // Botón "Anterior"
-                        if ($pagina_actual > 1) {
-                            echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '">Anterior</a></li>';
-                        }
+                        </tbody>
+                    </table>
 
-                        // Botones de número de página
-                        for ($i = 1; $i <= $total_paginas; $i++) {
-                            $active = ($i == $pagina_actual) ? 'active' : '';
-                            echo '<li class="page-item ' . $active . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
-                        }
+                    <!-- Paginación -->
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <?php
+                            // Botón "Anterior"
+                            if ($pagina_actual > 1) {
+                                echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '">Anterior</a></li>';
+                            }
 
-                        // Botón "Siguiente"
-                        if ($pagina_actual < $total_paginas) {
-                            echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '">Siguiente</a></li>';
-                        }
-                        ?>
-                    </ul>
-                </nav>
+                            // Botones de número de página
+                            for ($i = 1; $i <= $total_paginas; $i++) {
+                                $active = ($i == $pagina_actual) ? 'active' : '';
+                                echo '<li class="page-item ' . $active . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                            }
+
+                            // Botón "Siguiente"
+                            if ($pagina_actual < $total_paginas) {
+                                echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '">Siguiente</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Modal para actualizar empleados -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -237,10 +238,6 @@ if ($conn->connect_error) {
                         <div class="mb-3">
                             <label for="update-correo" class="form-label">Correo</label>
                             <input type="email" class="form-control" id="update-correo" name="correo">
-                        </div>
-                        <div class="mb-3">
-                            <label for="update-contrasena" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="update-contrasena" name="contrasena">
                         </div>
                         <div class="mb-3">
                             <label for="update-genero" class="form-label">Género</label>
@@ -271,6 +268,7 @@ if ($conn->connect_error) {
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const modal = new bootstrap.Modal(document.getElementById('updateModal'));
@@ -284,7 +282,6 @@ if ($conn->connect_error) {
                     document.getElementById('update-apellido-p').value = button.getAttribute('data-apellido_p');
                     document.getElementById('update-apellido-m').value = button.getAttribute('data-apellido_m');
                     document.getElementById('update-correo').value = button.getAttribute('data-correo');
-                    document.getElementById('update-contrasena').value = button.getAttribute('data-contrasena');
                     document.getElementById('update-genero').value = button.getAttribute('data-genero');
                     document.getElementById('update-telefono').value = button.getAttribute('data-telefono');
                     document.getElementById('update-rfc').value = button.getAttribute('data-rfc');
@@ -297,9 +294,17 @@ if ($conn->connect_error) {
             // Guardar cambios
             saveChangesBtn.addEventListener('click', () => {
                 const formData = new FormData(document.getElementById('updateForm'));
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
                 fetch('Updateempleado.php', {
-                        method: 'POST',
-                        body: formData
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString(),
                     })
                     .then(response => response.json())
                     .then(data => {
@@ -317,38 +322,21 @@ if ($conn->connect_error) {
             });
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Manejar evento de eliminar
-            document.querySelectorAll('.eliminar-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const id = button.getAttribute('data-id');
-                    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                        fetch('EliminarEmpleado.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded',
-                                },
-                                body: `id=${id}`
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Usuario eliminado con éxito.');
-                                    location.reload(); // Recargar para actualizar la tabla
-                                } else {
-                                    alert(`Error al eliminar: ${data.message}`);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('Hubo un problema al eliminar el usuario.');
-                            });
-                    }
-                });
-            });
+<script>
+    document.querySelectorAll('.eliminar-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const idEmpleado = this.getAttribute('data-id');
+            
+            // Confirmar la eliminación
+            if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+                // Realizar la eliminación mediante una redirección
+                window.location.href = `EliminarEmpleado.php?id=${idEmpleado}`;
+            }
         });
-    </script>
+    });
+</script>
+
+
 </body>
 
 </html>

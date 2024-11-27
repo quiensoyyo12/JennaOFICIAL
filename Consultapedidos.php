@@ -10,24 +10,14 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
-
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
 $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mysqli_error($conexion));
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 ?>
 <html>
@@ -50,6 +40,21 @@ if ($conn->connect_error) {
 </head>
 
 <body>
+    <style>
+        /* Quitar subrayado de los enlaces en el menú */
+        .nav-bar a {
+            text-decoration: none !important;
+            /* Quita cualquier subrayado */
+        }
+
+        /* Opcional: Cambiar el color del texto al pasar el mouse */
+        .nav-bar a:hover {
+            text-decoration: none;
+            /* Asegura que no se subraye al pasar el mouse */
+            color: #000;
+            /* Cambia el color del texto si deseas un efecto */
+        }
+    </style>
     <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
@@ -61,17 +66,17 @@ if ($conn->connect_error) {
         </div>
         <nav class="nav-bar">
             <ul>
-                <li>
-                    <a href="index.php" class="">inicio</a>
+            <li>
+                    <a href="inicioAdmin.php" class="">inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Blog</a>
+                    <a href="#" class="">Reportes</a>
                 </li>
                 <li>
-                    <a href="" class="">Portafolio</a>
+                    <a href="#" class="">Tikects</a>
                 </li>
                 <li>
-                    <a href="" class="">Contacto</a>
+                    <a href="#" class=""></a>
                 </li>
                 <div class="d-flex">
                     <h5 style="color: white; font-size: 1.2rem; font-weight: bold;">
@@ -108,92 +113,91 @@ if ($conn->connect_error) {
     <script src="script2.js"></script>
 
     <div class="container my-4">
-    <h2>Listado de Pedidos</h2>
-    <div class="table-responsive">
-        <a href="reporte_pedidos.php" class="btn btn-primary">Generar Reporte PDF</a>
-        <table class="table  table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>ID Pedido</th>
-                    <th>Cantidad de Productos</th>
-                    <th>Fecha de Entrega</th>
-                    <th>Total</th>
-                    <th>ID Proveedor</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Configuración de la paginación
-                $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
-                $registros_por_pagina = 5; // Número de registros por página
-                $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-                $offset = ($pagina_actual - 1) * $registros_por_pagina;
+        <h2>Listado de Pedidos</h2>
+        <div class="table-responsive">
+            <a href="reporte_pedidos.php" class="btn btn-primary">Generar Reporte PDF</a>
+            <table class="table  table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Cantidad de Productos</th>
+                        <th>Fecha de Entrega</th>
+                        <th>Total</th>
 
-                // Consulta con paginación
-                $consulta = "SELECT * FROM pedidos LIMIT $registros_por_pagina OFFSET $offset";
-                $resultado = mysqli_query($conexion, $consulta);
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Configuración de la paginación
+                    include 'conexion.php'; // Asegúrate de que la ruta sea correcta                    $registros_por_pagina = 5; // Número de registros por página
+                    $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                    $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
-                if (mysqli_num_rows($resultado) > 0) {
-                    while ($row = mysqli_fetch_assoc($resultado)) {
-                        echo "<tr>";
-                        echo "<td>{$row['idPedidos']}</td>";
-                        echo "<td>{$row['Cantidad_Pedidos']}</td>";
-                        echo "<td>{$row['FechaEntrega_Pedidos']}</td>";
-                        echo "<td>{$row['Total']}</td>";
-                        echo "<td>{$row['idProveedor']}</td>";
-                        echo "<td>
-                <button class='btn btn-sm btn-warning actualizar-btn' 
-                        data-id='{$row['idPedidos']}' 
-                        data-cantidad='{$row['Cantidad_Pedidos']}' 
-                        data-fecha='{$row['FechaEntrega_Pedidos']}' 
-                        data-total='{$row['Total']}' 
-                        data-proveedor='{$row['idProveedor']}'>
-                    Actualizar
-                </button>
+                    // Consulta con paginación
+                    $consulta = "SELECT * FROM pedidos LIMIT $registros_por_pagina OFFSET $offset";
+                    $resultado = mysqli_query($conexion, $consulta);
+
+                    if (mysqli_num_rows($resultado) > 0) {
+                        while ($row = mysqli_fetch_assoc($resultado)) {
+                            echo "<tr>";
+                            echo "<td>{$row['idPedidos']}</td>";
+                            echo "<td>{$row['Cantidad_Pedidos']}</td>";
+                            echo "<td>{$row['FechaEntrega_Pedidos']}</td>";
+                            echo "<td>{$row['Total']}</td>";
+
+                            echo "<td>
+               <button class='btn btn-sm btn-warning actualizar-btn' 
+        data-id='{$row['idPedidos']}' 
+        data-cantidad='{$row['Cantidad_Pedidos']}' 
+        data-fecha='{$row['FechaEntrega_Pedidos']}' 
+        data-total='{$row['Total']}'>
+    Actualizar
+</button>
+
                 <button class='btn btn-sm btn-danger eliminar-btn' data-id='{$row['idPedidos']}'>Eliminar</button>
               </td>";
-                        echo "</tr>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='6'>No hay pedidos registrados.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='6'>No hay pedidos registrados.</td></tr>";
-                }
 
-                // Calcular total de páginas
-                $consulta_total = "SELECT COUNT(*) AS total FROM pedidos";
-                $resultado_total = mysqli_query($conexion, $consulta_total);
-                $total_filas = mysqli_fetch_assoc($resultado_total)['total'];
-                $total_paginas = ceil($total_filas / $registros_por_pagina);
+                    // Calcular total de páginas
+                    $consulta_total = "SELECT COUNT(*) AS total FROM pedidos";
+                    $resultado_total = mysqli_query($conexion, $consulta_total);
+                    $total_filas = mysqli_fetch_assoc($resultado_total)['total'];
+                    $total_paginas = ceil($total_filas / $registros_por_pagina);
 
-                mysqli_close($conexion);
-                ?>
-            </tbody>
-        </table>
+                    mysqli_close($conexion);
+                    ?>
+                </tbody>
+            </table>
 
-        <!-- Paginación -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <?php
-                // Botón "Anterior"
-                if ($pagina_actual > 1) {
-                    echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '">Anterior</a></li>';
-                }
+            <!-- Paginación -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <?php
+                    // Botón "Anterior"
+                    if ($pagina_actual > 1) {
+                        echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '">Anterior</a></li>';
+                    }
 
-                // Números de página
-                for ($i = 1; $i <= $total_paginas; $i++) {
-                    $active = ($i == $pagina_actual) ? 'active' : '';
-                    echo '<li class="page-item ' . $active . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
-                }
+                    // Números de página
+                    for ($i = 1; $i <= $total_paginas; $i++) {
+                        $active = ($i == $pagina_actual) ? 'active' : '';
+                        echo '<li class="page-item ' . $active . '"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                    }
 
-                // Botón "Siguiente"
-                if ($pagina_actual < $total_paginas) {
-                    echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '">Siguiente</a></li>';
-                }
-                ?>
-            </ul>
-        </nav>
+                    // Botón "Siguiente"
+                    if ($pagina_actual < $total_paginas) {
+                        echo '<li class="page-item"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '">Siguiente</a></li>';
+                    }
+                    ?>
+                </ul>
+            </nav>
+        </div>
     </div>
-</div>
 
     <!-- Modal para Actualizar Pedido -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -208,20 +212,17 @@ if ($conn->connect_error) {
                         <input type="hidden" id="updateId" name="idPedidos">
                         <div class="mb-3">
                             <label for="updateCantidad" class="form-label">Cantidad de Productos</label>
-                            <input type="number" class="form-control" id="updateCantidad" name="Cantidad_Pedidos" required>
+                            <input type="number" class="form-control" id="updateCantidad" name="Cantidad_Pedidos">
                         </div>
                         <div class="mb-3">
                             <label for="updateFechaEntrega" class="form-label">Fecha de Entrega</label>
-                            <input type="date" class="form-control" id="updateFechaEntrega" name="FechaEntrega_Pedidos" required>
+                            <input type="date" class="form-control" id="updateFechaEntrega" name="FechaEntrega_Pedidos">
                         </div>
                         <div class="mb-3">
                             <label for="updateTotal" class="form-label">Total</label>
-                            <input type="number" class="form-control" id="updateTotal" name="Total" required>
+                            <input type="number" class="form-control" id="updateTotal" name="Total">
                         </div>
-                        <div class="mb-3">
-                            <label for="updateIdProveedor" class="form-label">ID Proveedor</label>
-                            <input type="number" class="form-control" id="updateIdProveedor" name="idProveedor" required>
-                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -232,66 +233,55 @@ if ($conn->connect_error) {
         </div>
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Mostrar el modal al hacer clic en el botón "Actualizar"
-            $(".actualizar-btn").click(function() {
-                let id = $(this).data("id");
-                let cantidad = $(this).data("cantidad");
-                let fecha = $(this).data("fecha");
-                let total = $(this).data("total");
-                let proveedor = $(this).data("proveedor");
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cuando se haga clic en el botón "Actualizar"
+            document.querySelectorAll(".actualizar-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    // Obtener los datos del pedido
+                    const id = this.getAttribute("data-id");
+                    const cantidad = this.getAttribute("data-cantidad");
+                    const fecha = this.getAttribute("data-fecha");
+                    const total = this.getAttribute("data-total");
 
-                $("#updateId").val(id);
-                $("#updateCantidad").val(cantidad);
-                $("#updateFechaEntrega").val(fecha);
-                $("#updateTotal").val(total);
-                $("#updateIdProveedor").val(proveedor);
+                    // Cargar los datos en el formulario del modal
+                    document.getElementById("updateId").value = id;
+                    document.getElementById("updateCantidad").value = cantidad;
+                    document.getElementById("updateFechaEntrega").value = fecha;
+                    document.getElementById("updateTotal").value = total;
 
-                $("#updateModal").modal("show");
+                    // Mostrar el modal
+                    const modal = new bootstrap.Modal(document.getElementById("updateModal"));
+                    modal.show();
+                });
             });
 
-            // Manejar la actualización
-            $("#saveUpdateBtn").click(function() {
-                let formData = $("#updateForm").serialize();
+            // Manejo del botón "Actualizar" en el modal
+            document.getElementById("saveUpdateBtn").addEventListener("click", function() {
+                const formData = new FormData(document.getElementById("updateForm"));
 
-                // Deshabilitar el botón para evitar múltiples clics
-                $(this).prop("disabled", true).text("Actualizando...");
-
-                $.ajax({
-                    url: "Updatepedidos.php",
-                    type: "POST",
-                    data: formData,
-                    dataType: "json", // Esperamos una respuesta JSON del servidor
-                    success: function(response) {
-                        if (response.success) {
-                            // Mostrar un mensaje de éxito (opcional)
-                            alert("Pedido actualizado correctamente.");
-
-                            // Refrescar la página para reflejar cambios
-                            location.reload();
+                // Realizar la solicitud de actualización
+                fetch("Updatepedidos.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload(); // Recargar la página para reflejar los cambios
                         } else {
-                            // Manejar errores específicos del servidor
-                            alert("Error al actualizar: " + response.message);
+                            alert("Error: " + data.message);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        // Manejar errores del servidor o de conexión
-                        alert("Ocurrió un error: " + error);
-                    },
-                    complete: function() {
-                        // Habilitar el botón nuevamente
-                        $("#saveUpdateBtn").prop("disabled", false).text("Actualizar");
-                    }
-                });
-
-                // Cerrar el modal después de enviar la solicitud
-                $("#updateModal").modal("hide");
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Ocurrió un error al actualizar el pedido.");
+                    });
             });
         });
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Manejar evento de eliminar

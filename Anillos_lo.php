@@ -10,62 +10,167 @@ if (!isset($_SESSION['id'])) {
 // Ahora puedes acceder al ID del usuario logueado
 $id = $_SESSION['id'];
 
-$conexion = mysqli_connect("localhost", "root", "", "jennawork");
-
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 $consulta_ciudadanos = "SELECT * FROM usuario where id = '$id'";
 $resultado_ciudadanos = mysqli_query($conexion, $consulta_ciudadanos) or die(mysqli_error($conexion));
 $fila_ciudadano = mysqli_fetch_assoc($resultado_ciudadanos);
 ?>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jennawork";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Verifica la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+    include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login/styleB.css">
+    <link rel="stylesheet" href="login/styleN.css">
     <link rel="stylesheet" href="css/css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/bootstrap.min.js"></script>
     <title>Anillos - JennaWork</title>
-    
+
 </head>
 <style>
-    /* Estilo para todas las tarjetas */
+    body {
+        background-color: #e4d3fd;
+        /* Lavanda claro */
+        color: #333;
+        /* Gris oscuro */
+        font-family: Arial, sans-serif;
+        /* Fuente principal */
+    }
+
+    /* Estilo general para las cards originales */
     .card {
-        height: 100%; /* Asegura que todas tengan la misma altura */
-        max-width: 300px; /* Ajusta el ancho máximo */
-        margin: 0 auto; /* Centra las tarjetas */
-    }
-
-    /* Estilo para las imágenes de las tarjetas */
-    .card-img-top {
-        height: 200px; /* Altura fija para las imágenes */
-        object-fit: cover; /* Asegura que las imágenes se ajusten sin distorsión */
-    }
-
-    /* Espaciado entre las tarjetas */
-    .row > .col-12.col-md-6.col-lg-4 {
+        height: 300px;
         display: flex;
-        justify-content: center; /* Centra las tarjetas dentro de la fila */
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        /* Permite que los elementos internos se posicionen con precisión */
+    }
+
+    .card-img-top {
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Efecto hover para las cards originales */
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
+    }
+
+    /* Hover container inside the card */
+    .hover-container {
+        position: absolute;
+        bottom: 0;
+        /* Aparece al final de la tarjeta */
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 10;
+        /* Asegura que se muestre encima del contenido */
+    }
+
+    .card:hover .hover-container {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Estilos específicos para las cards con hover interactivo */
+    .card-hover-interactive {
+        position: relative;
+        overflow: visible;
+        /* Permite que los elementos se extiendan fuera del contenedor */
+    }
+
+    .card-hover-interactive .hover-container {
+        position: absolute;
+        bottom: -100%;
+        /* Oculto por defecto */
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: bottom 0.3s ease;
+    }
+
+    .card-hover-interactive:hover .hover-container {
+        bottom: 0;
+        /* Aparece cuando se hace hover */
+    }
+
+    /* Contenedor de cantidad interactiva */
+    .cantidad-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .cantidad {
+        font-size: 1rem;
+        font-weight: bold;
+        min-width: 30px;
+        text-align: center;
+    }
+
+    /* Ensures the card text and hover align */
+    .card-body {
+        margin-bottom: 50px;
+        /* Deja espacio para el hover-container dentro de la tarjeta */
+    }
+
+    /* Quitar subrayado de los enlaces en el menú */
+    .nav-bar a {
+        text-decoration: none !important;
+        /* Quita cualquier subrayado */
+    }
+
+    /* Opcional: Cambiar el color del texto al pasar el mouse */
+    .nav-bar a:hover {
+        text-decoration: none;
+        /* Asegura que no se subraye al pasar el mouse */
+        color: #000;
+        /* Cambia el color del texto si deseas un efecto */
     }
 </style>
+
 <body>
 
-<header>
+    <header>
         <div class="logo">
             <img src="images/logoJenna-removebg-preview.png" alt="Logo de la Empresa" class="logo-img">
         </div>
@@ -80,10 +185,10 @@ if ($conn->connect_error) {
                     <a href="inicio.php" class="">Inicio</a>
                 </li>
                 <li>
-                    <a href="" class="">Carrito</a>
+                    <a href="carrito.php" class="">Carrito</a>
                 </li>
                 <li>
-                    <a href="" class="">Contacto</a>
+                    <a href="" class=""></a>
                 </li>
                 <li>
                     <a href="" class=""></a>
@@ -128,42 +233,104 @@ if ($conn->connect_error) {
         <div class="row">
             <?php
             // Conexión a la base de datos
-            $conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error en la base de datos.");
-
-            // Consulta para obtener los aretes de la marca JennaWork
-            $consultaAretes = "SELECT * FROM productos WHERE Tipo_Productos = 'Anillos' AND Marca = 'JennaWork'";
-            $resultadoAretes = mysqli_query($conexion, $consultaAretes);
+            include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+            // Consulta para obtener los anillos de la marca JennaWork
+            $consultaAnillos = "SELECT * FROM productos WHERE Tipo_Productos = 'Anillos' AND Marca = 'JennaWork'";
+            $resultadoAnillos = mysqli_query($conexion, $consultaAnillos);
 
             // Verificar si hay resultados
-            if ($resultadoAretes && mysqli_num_rows($resultadoAretes) > 0) {
-                while ($row = mysqli_fetch_assoc($resultadoAretes)) {
-                    echo "<div class='col-12 col-md-6 col-lg-4 mb-4'>";
-                    echo "<div class='card text-center'>";
-                    // Mostrar la imagen del producto
+            if ($resultadoAnillos && mysqli_num_rows($resultadoAnillos) > 0) {
+                while ($row = mysqli_fetch_assoc($resultadoAnillos)) {
+                    echo "<div class='col-12 col-sm-6 col-md-4 col-lg-3 mb-4'>";
+                    echo "<div class='card card-hover-interactive h-100'>";
+
+                    // Mostrar la imagen del producto (usando base64)
                     if (!empty($row['imagen'])) {
-                        echo "<img src='uploads/{$row['imagen']}' class='card-img-top' alt='{$row['Nombre_producto']}'>";
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($row['imagen']) . "' class='card-img-top' alt='" . htmlspecialchars($row['Nombre_producto']) . "'>";
                     } else {
+                        // Imagen por defecto si no hay imagen disponible
                         echo "<img src='images/default.jpg' class='card-img-top' alt='Imagen no disponible'>";
                     }
+
                     // Mostrar detalles del producto
                     echo "<div class='card-body'>";
-                    echo "<h5 class='card-title'>{$row['Nombre_producto']}</h5>";
-                    echo "<p class='card-text'>{$row['Descripcion_Productos']}</p>";
+                    echo "<h5 class='card-title'>" . htmlspecialchars($row['Nombre_producto']) . "</h5>";
+                    echo "<p class='card-text'>" . htmlspecialchars($row['Descripcion_Productos']) . "</p>";
                     echo "<p class='card-text'><strong>Precio:</strong> $" . number_format($row['Precio'], 2) . "</p>";
-                    echo "<p class='card-text'><strong>Cantidad:</strong> {$row['Cantidad_Productos']} disponibles</p>";
-                    echo "<a href='#' class='btn btn-primary'>Comprar</a>";
                     echo "</div>";
+
+                    // Contenedor de hover interactivo
+                    echo "<div class='hover-container'>";
+                    echo "<div class='cantidad-container'>";
+                    echo "<button class='btn btn-sm btn-secondary cantidad-btn' data-action='decrement' data-id='{$row['idProductos']}'>-</button>";
+                    echo "<span class='cantidad'>1</span>";
+                    echo "<button class='btn btn-sm btn-secondary cantidad-btn' data-action='increment' data-id='{$row['idProductos']}'>+</button>";
                     echo "</div>";
+                    echo "<form method='post' class='agregar-al-carrito-form'>";
+                    echo "<input type='hidden' name='idProductos' value='{$row['idProductos']}'>";
+                    echo "<input type='hidden' name='Nombre_producto' value='" . htmlspecialchars($row['Nombre_producto']) . "'>";
+                    echo "<input type='hidden' name='Precio' value='" . htmlspecialchars($row['Precio']) . "'>";
+                    echo "<input type='hidden' name='imagen' value='" . base64_encode($row['imagen']) . "'>";
+                    echo "<input type='hidden' name='Cantidad_Productos' class='cantidad-input' value='1'>";
+                    echo "<button type='submit' class='btn btn-primary btn-sm agregar-al-carrito-btn'>Agregar al carrito</button>";
+                    echo "</form>";
                     echo "</div>";
+
+                    echo "</div>"; // Cierre de card
+                    echo "</div>"; // Cierre de col
                 }
             } else {
-                echo "<p class='text-center col-12'>No hay aretes disponibles de la marca JennaWork.</p>";
+                echo "<p class='text-center col-12'>No hay anillos disponibles de la marca JennaWork.</p>";
             }
 
             // Cerrar conexión
             mysqli_close($conexion);
             ?>
+
+
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Manejo de botones de cantidad
+            const cantidadBtns = document.querySelectorAll(".cantidad-btn");
+
+            cantidadBtns.forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const action = btn.getAttribute("data-action");
+                    const cantidadContainer = btn.closest(".cantidad-container");
+                    const cantidadSpan = cantidadContainer.querySelector(".cantidad");
+                    let cantidad = parseInt(cantidadSpan.textContent);
+
+                    if (action === "increment") {
+                        cantidad++;
+                    } else if (action === "decrement" && cantidad > 1) {
+                        cantidad--;
+                    }
+
+                    cantidadSpan.textContent = cantidad;
+                    const inputCantidad = cantidadContainer.parentElement.querySelector(".cantidad-input");
+                    if (inputCantidad) {
+                        inputCantidad.value = cantidad;
+                    }
+                });
+            });
+
+            // Agregar funcionalidad de agregar al carrito
+            const forms = document.querySelectorAll(".agregar-al-carrito-form");
+            forms.forEach((form) => {
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    // Aquí puedes enviar los datos al servidor con fetch o AJAX
+                    console.log("Producto agregado al carrito:", Object.fromEntries(formData.entries()));
+                    alert("Producto agregado al carrito.");
+                });
+            });
+        });
+    </script>
+
 </body>
+
 </html>

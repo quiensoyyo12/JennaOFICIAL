@@ -1,59 +1,26 @@
-<html>
+<?php
+$idDetalle_venta = $_POST['idDetalle_venta'] ?? null;
+$idVenta = $_POST['idVentas'] ?? '';
+$idProductos = $_POST['idProductos'] ?? '';
+$Cantidad = $_POST['Cantidad'] ?? '';
 
-<head>
-    <title>Detalle de venta</title>
-    <link href="css/css/bootstrap.css" 
-        rel="stylesheet"
-         crossorigin="anonymous">
-         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" >
-        <link href="css/css/bootstrap.css"
-         rel="stylesheet"
-          crossorigin="anonymous">
-        
-</head>
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
-<body>
-    <div class="container text-center">
-    
-        <div class="row">
-            <div class="col">
-            
-            </div>
-            <div class="col-6">
-                <h2>Detalle de venta</h2>
-                <?php
-                    $idDetalle_venta=$_POST['idDetalle_venta'];
-                    $idVenta=$_POST['idVenta'];
-                    $idProductos=$_POST['idProductos'];
-                    $Cantidad=$_POST['Cantidad'];
-                    echo "idDetalle_venta: ".$idDetalle_venta."<br>";
-                    echo "idVenta: ".$idVenta."<br>";
-                    echo "idProductos: ".$idProductos."<br>"; 
-                    echo "Cantidad: ".$Cantidad."<br>";                  
-                    $conexion = mysqli_connect("localhost","root","","jennawork")
-                    or die ("Error en la B.D.");
-                    $Consulta="INSERT INTO detalle_venta VALUES('idDetalle_venta','$idVenta','$idProductos','$Cantidad')";
-                    $resultado=mysqli_query($conexion,$Consulta);
-                    if($resultado==1)
-                    {
-                        echo "<h3> datos insertados </h3>";
-                    }
-                    else
-                    {
-                        echo "<h3>datos no insertados</h3>";
-                    }
-                    
-                ?>
-                
-            </div>
+if ($conexion) {
+    $Consulta = "INSERT INTO detalle_venta (idDetalle_venta, idVentas, idProductos, Cantidad) 
+                 VALUES ('$idDetalle_venta', '$idVenta', '$idProductos', '$Cantidad')";
+    $resultado = mysqli_query($conexion, $Consulta);
 
-            <div class="col">
-            
-            </div>
-        </div>
-    </div>
-    
+    if ($resultado) {
+        header("Location: detalle_ventaAdmin.php?success=true");
+    } else {
+        $error = mysqli_error($conexion);
+        header("Location: detalle_ventaAdmin.php?success=false&error=" . urlencode($error));
+    }
 
-</body>
-</html>
+    mysqli_close($conexion);
+} else {
+    $error = mysqli_connect_error();
+    header("Location: detalle_ventaAdmin.php?success=false&error=" . urlencode($error));
+}
+?>

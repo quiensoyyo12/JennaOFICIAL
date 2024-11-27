@@ -35,8 +35,8 @@
                 echo "Auxiliar: " . $Auxiliar . "<br>";
                 echo "Cliente: " . $Cliente . "<br>";
                 echo "idPermisos: " . $idPermisos . "<br>";
-                $conexion = mysqli_connect("localhost", "root", "", "jennawork")
-                    or die("Error en la B.D.");
+                include 'conexion.php'; // Asegúrate de que la ruta sea correcta
+
                 $Consulta = "INSERT INTO tiposempledos VALUES('$idTiposEmp','$Administrador','$Auxiliar','$Cliente','$idPermisos')";
                 $resultado = mysqli_query($conexion, $Consulta);
                 if ($resultado == 1) {

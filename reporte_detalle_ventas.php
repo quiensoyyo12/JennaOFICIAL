@@ -2,7 +2,7 @@
 require('fpdf186/fpdf.php');
 
 // Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "jennawork") or die("Error de conexión de BD");
+include 'conexion.php'; // Asegúrate de que la ruta sea correcta
 
 // Consulta para obtener los datos
 $consulta = "SELECT * FROM detalle_venta";
